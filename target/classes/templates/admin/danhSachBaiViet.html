@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link src="../css/style.css" rel="stylesheet" type="text/css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: darkblue;
+        }
+    </style>
+
+    <script>
+
+    </script>
+
+</head>
+<body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+
+<header>
+    <div class="col-sm-12">
+        <div class="row d-flex align-items-center" style="font-size:18px">
+            <div class="col-sm-1" style="height:5em; width: 10%;">
+                <img src="http://localhost:8080/images/ttcgroup.png" class="w-100 h-100" alt="LOGO TTCGROUP">
+            </div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
+                <a href="">Nhà đất cần bán</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
+                <a href="" class="align-middle">Nhà đất cho thuê</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right;">
+                <a type="button" class="btn btn-outline-dark" th:href="@{/login}">Đăng Nhập</a>
+            </div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right;">
+                <a type="button" class="btn btn-outline-primary" th:href="@{/dang-tin-nha-dat}">Đăng Tin</a>
+            </div>
+        </div>
+
+    </div>
+</header>
+
+<div class="col-sm-12">
+    <div class="container">
+
+    </div>
+</div>
+
+<div class="col-sm-12">
+    <div class="col-sm-12 d-flex justify-content-end">
+        <div class="col-sm-9">
+            <div class="row" style="height: 4em;" >
+                <div class="col-sm-3 h-100 form-floating">
+                    <input type="text" class="form-control form-group h-100" id="text">
+                    <label for="text">Nhập thông tin</label>
+                </div>
+                <div class="col-sm-3 h-100 form-floating">
+                    <select name="select" class="form-group form-control form-select h-100" aria-label="Floating label select example" id="select1">
+                        <option value="1" selected>ID</option>
+                        <option value="2">Tiêu đề</option>
+                        <option value="3">Thành phố</option>
+                        <option value="4">Diện tích</option>
+                        <option value="5">Giá tiền</option>
+                    </select>
+                    <label for="select1">Tìm kiếm theo</label>
+                </div>
+                <div class="col-sm-1 h-100">
+                    <button type="button" class="btn btn-outline-info h-100">TÌM KIẾM</button>
+                </div>
+                <div class="col-sm-1 d-flex float-end h-100" style="left: 30%">
+                    <a class="btn btn-outline-danger form-control form-group float-end d-flex align-items-center justify-content-center h-100">
+                        <i class="glyphicon glyphicon-trash"> Xóa</i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 border-end" style="width: 20%; margin-top: 3em; font-size: 15px; font-weight: 600">
+            <a href="http://localhost:8080/admin/home">
+                <div class="col-sm-12 border-bottom d-flex align-items-center p-4 btn-outline-secondary">
+                    <i class="glyphicon glyphicon-home"> Trang chủ </i>
+                </div>
+            </a>
+            <a href="http://localhost:8080/admin/quan-ly-tai-khoan">
+                <div class="col-sm-12 border-bottom btn-outline-secondary d-flex align-items-center p-4">
+                    <i class="glyphicon glyphicon-user"> Danh sách người dùng</i>
+                </div>
+            </a>
+            <a href="http://localhost:8080/admin/quan-ly-bai-viet">
+                <div class="col-sm-12 border-bottom d-flex align-items-center p-4 btn-outline-secondary">
+                    <i class="glyphicon glyphicon-edit"> Danh sách bài viết</i>
+                </div>
+            </a>
+
+        </div>
+        <div class="col-sm-9 border-bottom-0 border" style="width: 80%;">
+            <div class="container m-5">
+                    <table class="table table-hover" style="font-size: 15px">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col" style="width: 20%">Tiêu đề</th>
+                            <th scope="col">Thành phố</th>
+                            <th scope="col">Diện tích</th>
+                            <th scope="col">Giá tiền</th>
+                            <th scope="col">Ngày đăng</th>
+                            <th scope="col"></th>
+                            <th scope="col">SELECT</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="a : ${articles}" style="height: 5em; overflow: hidden">
+                            <a th:href="@{/detail/{id}(id=*{a.articleId})}">
+                            <td scope="row"><p th:text="*{a.articleId}"></p></td>
+                            <td class="overflow-hidden"><p th:text="*{a.title}"></p></td>
+                            <td> <p th:text="*{a.city}"></p> </td>
+                            <td> <p th:text="*{a.area}"></p> </td>
+                            <td> <p th:text="*{a.price}"></p> </td>
+                            <td> <p th:text="*{a.date_up}"></p> </td>
+                            <td> <a th:href="@{chi-tiet-bai-viet/{id}(id=*{a.articleId})}">Xem chi tiết</a></td>
+                            <td><input type="checkbox"></td>
+                            </a>
+                        </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link src="../css/style.css" rel="stylesheet" type="text/css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: darkblue;
+        }
+    </style>
+
+    <script>
+
+    </script>
+
+</head>
+<body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+
+<header>
+    <div class="col-sm-12">
+        <div class="row d-flex align-items-center" style="font-size:18px">
+            <div class="col-sm-1" style="height:5em; width: 10%;">
+                <img th:src="@{images/ttcgroup.png}" class="w-100 h-100" alt="LOGO TTCGROUP">
+            </div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
+                <a href="">Nhà đất cần bán</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
+                <a href="" class="align-middle">Nhà đất cho thuê</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right;">
+                <a type="button" class="btn btn-outline-dark" th:href="@{/login}">Đăng Nhập</a>
+            </div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right;">
+                <a type="button" class="btn btn-outline-primary" th:href="@{/dang-tin-nha-dat}">Đăng Tin</a>
+            </div>
+        </div>
+
+    </div>
+</header>
+
+<div class="col-sm-12">
+    <div class="container">
+
+    </div>
+</div>
+
+<div class="col-sm-12">
+    <div class="row">
+        <div class="col-sm-3 border-end" style="width: 20%; margin-top: 5em; font-size: 15px; font-weight: 600">
+            <div class="col-sm-12 border-bottom d-flex align-items-center p-4 btn-outline-secondary">
+                <i class="glyphicon glyphicon-th-list"> Danh sách bài viết </i>
+
+            </div>
+            <div class="col-sm-12 border-bottom btn-outline-secondary d-flex align-items-center p-4">
+                <i class="glyphicon glyphicon-user"> Danh sách người dùng</i>
+            </div>
+            <div class="col-sm-12 border-bottom d-flex align-items-center p-4 btn-outline-secondary">
+                <i class="glyphicon glyphicon-list-alt"> Thống kê</i>
+            </div>
+
+        </div>
+        <div class="col-sm-9 border-bottom-0 border" style="width: 80%; margin-top: 4em">
+            <div class="container m-5">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-sm-4 border border-5 border-success rounded-circle d-flex align-items-center justify-content-center" style="height: 38em; margin-right: 10em">
+                        <div class="col-sm-12 ">
+                            <h1 class="d-flex align-items-center justify-content-center">TÀI KHOẢN SỬ DỤNG</h1><br>
+                            <h1 class="d-flex align-items-center justify-content-center">12344</h1>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 border border-5 border-success rounded-circle d-flex align-items-center justify-content-center" style="height: 38em">
+                        <div class="col-sm-12 ">
+                            <h1 class="d-flex align-items-center justify-content-center">SỐ BÀI ĐĂNG</h1><br>
+                            <h1 class="d-flex align-items-center justify-content-center">12344</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

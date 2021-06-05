@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link src="../css/style.css" rel="stylesheet" type="text/css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: darkblue;
+        }
+    </style>
+
+    <script>
+
+    </script>
+
+</head>
+<body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+
+<header>
+    <div class="col-sm-12">
+        <div class="row d-flex align-items-center" style="font-size:18px">
+            <div class="col-sm-1" style="height:5em; width: 10%;">
+                <img src="http://localhost:8080/images/ttcgroup.png" class="w-100 h-100" alt="LOGO TTCGROUP">
+            </div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
+                <a href="">Nhà đất cần bán</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
+                <a href="" class="align-middle">Nhà đất cho thuê</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right;">
+                <a type="button" class="btn btn-outline-dark" th:href="@{/login}">Đăng Nhập</a>
+            </div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right;">
+                <a type="button" class="btn btn-outline-primary" th:href="@{/dang-tin-nha-dat}">Đăng Tin</a>
+            </div>
+        </div>
+
+    </div>
+</header>
+
+<div class="col-sm-12">
+    <div class="container">
+
+    </div>
+</div>
+
+<div class="col-sm-12 border-top">
+    <div class="row">
+        <div class="col-sm-3 border-end" style="width: 20%; margin-top: 5em; font-size: 15px; font-weight: 600">
+            <a href="http://localhost:8080/admin/home">
+                <div class="col-sm-12 border-bottom d-flex align-items-center p-4 btn-outline-secondary">
+                    <i class="glyphicon glyphicon-home"> Trang chủ </i>
+                </div>
+            </a>
+            <a href="http://localhost:8080/admin/quan-ly-tai-khoan">
+                <div class="col-sm-12 border-bottom btn-outline-secondary d-flex align-items-center p-4">
+                    <i class="glyphicon glyphicon-user"> Danh sách người dùng</i>
+                </div>
+            </a>
+            <a href="http://localhost:8080/admin/quan-ly-bai-viet">
+                <div class="col-sm-12 border-bottom d-flex align-items-center p-4 btn-outline-secondary">
+                    <i class="glyphicon glyphicon-edit"> Danh sách bài viết</i>
+                </div>
+            </a>
+
+        </div>
+        <div class="col-sm-9 border-bottom-0 border" style="width: 80%;">
+            <div class="row d-flex justify-content-center">
+                <div class="col-sm-8">
+                    <div class="col-sm-12 d-flex justify-content-center align-items-center m-5" style="color: #003e71;" >
+                        <h1>Danh sách bài đăng tài khoản <span th:text="*{inforUser.userName}"></span></h1>
+                    </div>
+                    <div th:each="article : ${articles}">
+                        <div class="col-sm-12 border border-start-0" style="height: 20em;margin-bottom: 3em">
+                            <a th:href="@{/admin/chi-tiet-bai-viet/{id}(id=*{article.getArticleId()})}" style="text-decoration-line: none">
+                                <div class="row h-100">
+                                    <div class="col-sm-5 h-100">
+                                        <img th:src="'data:image/jpeg;base64,'+ *{imgs.get(articles.indexOf(article)).imageContent}" class="h-100 w-100">
+                                    </div>
+                                    <div class="col-sm-7 h-100 p-3" style="font-size: 15px; color: rgba(51,51,51,0.9)">
+                                        <h3 th:text="*{article.getTitle()}" class="col-sm-12" style="color: #003e71"></h3>
+
+                                        <div>
+                                            <label>Diện tích :</label>
+                                            <span th:text="*{article.getArea()}"></span>
+                                        </div>
+                                        <div>
+                                            <label>Giá :</label>
+                                            <span th:text="*{article.getPrice()}"></span>
+                                        </div>
+                                        <div>
+                                            <label>Địa chỉ :</label>
+                                            <span th:text="*{article.getDistrict()}"></span>
+                                            <span th:text="*{article.getCity()}"></span>
+                                        </div>
+
+                                        <div style="height:35%;overflow: hidden">
+                                            <span th:text="*{article.detail}"></span>
+                                            <span>Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,
+                                        Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,
+                                        Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,
+                                        Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,
+                                        Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </a>
+                        </div>
+
+                        <br/>
+
+                    </div>
+
+                </div>
+
+                <div class="col-sm-3" style=" margin-left: 2em; font-size: 15px;">
+                    <div class="col-sm-12 border" style="height: auto;">
+                        <div class="col-sm-12 border-bottom d-flex justify-content-center align-items-center" style="height: 3em; color: #003e71">
+                            <h2>Thông tin tài khoản</h2>
+                        </div>
+                        <div class="col-sm-12 w-100 h-25 justify-content-center d-flex" style="margin-top: 1em">
+                            <div class="border rounded-circle" style="width: 5em; height: 6em">
+                                <img th:src="'data:image/jpeg;base64,'+ *{avatar.image}" class="w-100 h-100 rounded-circle">
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 d-flex align-items-center justify-content-center" style="height: 3em">
+                            Tên tài khoản: <span th:text="*{inforUser.userName}"></span>
+                        </div>
+                        <div class="col-sm-12 d-flex align-items-center justify-content-center" style="height: 3em">
+                            Họ tên: <span th:text="*{inforUser.fullName}"></span>
+                        </div>
+                        <div class="col-sm-12 d-flex align-items-center justify-content-center" style="height: 3em">
+                            Địa chỉ: <span th:text="*{inforUser.address}"></span>
+                        </div>
+                        <div class="col-sm-12 align-items-center justify-content-center d-flex" >
+                            <a type="button" class="btn btn-success d-flex align-items-center justify-content-center"
+                               th:href="'tel:' + *{inforUser.phone}" style="font-size: 20px; width: 10em; height: 2.5em">
+                                <p th:text="*{inforUser.phone}"></p>
+                            </a>
+                        </div>
+                        <div class="col-sm-12 d-flex align-items-center justify-content-center" style="margin-top: 2em">
+                            <a type="button" class="btn btn-outline-info d-flex align-items-center justify-content-center"
+                               th:href="'mailto:'+ *{inforUser.email}" style="font-size: 15px; width: 15em; height: 3em">
+                                <p th:text="*{inforUser.email}"></p>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

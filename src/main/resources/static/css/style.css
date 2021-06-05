@@ -1,0 +1,13 @@
+.heading {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
