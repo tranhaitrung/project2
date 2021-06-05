@@ -1,25 +1,22 @@
 package project2.muabannhadat.controller;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.DateUtils;
+import project2.muabannhadat.configuration.AuthenticationSystem;
 import project2.muabannhadat.model.*;
 import project2.muabannhadat.service.*;
 
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Base64;
@@ -48,25 +45,20 @@ public class UserController {
 
     private String username;
 
-    @GetMapping(value = "/dang-ky-thong-tin", produces = MediaType.IMAGE_PNG_VALUE)
+    @GetMapping(value = "/cap-nhat-thong-tin", produces = MediaType.IMAGE_PNG_VALUE)
     public ModelAndView sign() throws IOException {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
+        username = AuthenticationSystem.getUsernameLogined();
         ModelAndView modelAndView = new ModelAndView();
         InformationUser informationUser = informationUserService.findInforUserByUsername(username);
         Avatar avatar = avatarService.findByUserName(username);
         String avt =  avatar.getImage();
         modelAndView.addObject("avatars",avt );
         modelAndView.addObject("inforUser",informationUser);
-        modelAndView.setViewName("user/updateInformation");
+        modelAndView.setViewName("user/cap-nhat-thong-tin");
         return modelAndView;
     }
 
-    @PostMapping("/dang-ky-thong-tin")
+    @PostMapping("/cap-nhat-thong-tin")
     public ModelAndView resignInfor(@Valid InformationUser informationUser, @RequestParam(name = "files") MultipartFile avatar, BindingResult bindingResult) throws IOException {
 
         System.out.println("Vào đăng ký thông tin");
@@ -75,7 +67,7 @@ public class UserController {
         informationUser.setUserName(username);
         informationUser.setInforId(u.getInforId());
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("user/updateInformation");
+            modelAndView.setViewName("user/cap-nhat-thong-tin");
         } else {
 
                 System.out.println("Có vào đây");
@@ -84,17 +76,17 @@ public class UserController {
                     byte[] file = avatar.getBytes();
                     String image = Base64.getEncoder().encodeToString(file);
                     avatarService.setAvatar(username, image);
-//                    modelAndView.addObject("avatars", image);
+                    modelAndView.addObject("avatars", image);
                 }else {
-//                    Avatar avt = avatarService.findByUserName(username);
-//                    modelAndView.addObject("avatars", avt.getImage());
+                    Avatar avt = avatarService.findByUserName(username);
+                    modelAndView.addObject("avatars", avt.getImage());
                 }
             informationUserService.saveInforUser(informationUser);
             Avatar avt = avatarService.findByUserName(username);
             modelAndView.addObject("avatars", avt.getImage());
             modelAndView.addObject("inforUser",informationUser);
             modelAndView.addObject("successMessage","Cập nhật thông tin thành công");
-            modelAndView.setViewName("user/updateInformation");
+            modelAndView.setViewName("capnhatthongtin");
 
         }
         return modelAndView;
@@ -103,13 +95,7 @@ public class UserController {
 
     @GetMapping("/dang-tin-nha-dat")
     public ModelAndView dangTinThueNha(){
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-
+        username = AuthenticationSystem.getUsernameLogined();
         ModelAndView modelAndView = new ModelAndView();
         InformationUser informationUser = informationUserService.findInforUserByUsername(username);
         if(informationUser.getFullName() == null){
@@ -117,13 +103,13 @@ public class UserController {
             String avt = avatar.getImage();
             modelAndView.addObject("avatars",avt);
             modelAndView.addObject("inforUser",informationUser);
-            modelAndView.setViewName("user/updateInformation");
+            modelAndView.setViewName("user/cap-nhat-thong-tin");
         }
         else {
             Article article = new Article();
             modelAndView.addObject("inforUser", informationUser);
             modelAndView.addObject("article", article);
-            modelAndView.setViewName("user/postArticle");
+            modelAndView.setViewName("user/dang-bai");
         }
         return modelAndView;
     }
@@ -136,7 +122,7 @@ public class UserController {
         InformationUser informationUser = informationUserService.findInforUserByUsername(username);
         if(bindingResult.hasErrors()){
             System.out.println("lỗi null");
-            modelAndView.setViewName("user/postArticle");
+            modelAndView.setViewName("user/dang-bai");
         }else{
             String p = VNCharacterUtils.removeAccent(article.getCity());
             article.setCity_unsigned(p);
@@ -184,7 +170,7 @@ public class UserController {
             modelAndView.addObject("inforUser",informationUser);
             modelAndView.addObject("article",new Article());
             modelAndView.addObject("successMessage","Đăng tin thành công!");
-            modelAndView.setViewName("user/postArticle");
+            modelAndView.setViewName("user/dang-bai");
             System.out.println("success!!");
         }
 
@@ -194,13 +180,7 @@ public class UserController {
     private Long articleId;
     @GetMapping("/sua-bai-viet/{id}")
     public ModelAndView suaBaiViet(@PathVariable("id") Long id){
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        articleId = id;
+        username = AuthenticationSystem.getUsernameLogined();
 
         ModelAndView modelAndView = new ModelAndView();
         Article article = articleService.findArticleById(id);
@@ -212,7 +192,7 @@ public class UserController {
         System.out.println("vào đây nè");
         modelAndView.addObject("article",article);
         modelAndView.addObject("inforUser", informationUser);
-        modelAndView.setViewName("user/suaBaiViet");
+        modelAndView.setViewName("user/sua-bai");
         return modelAndView;
     }
 
@@ -224,7 +204,7 @@ public class UserController {
         if(bindingResult.hasErrors() || informationUser == null){
             System.out.println("lỗi null");
             modelAndView.addObject("successMessage","Vui lòng đăng nhập");
-            modelAndView.setViewName("user/suaBaiViet");
+            modelAndView.setViewName("user/sua-bai");
         }else{
             article.setArticleId(articleId);
             article.setDate_up(DateUtils.createNow().getTime());
@@ -256,7 +236,7 @@ public class UserController {
             modelAndView.addObject("inforUser",informationUser);
             modelAndView.addObject("article",article);
             modelAndView.addObject("successMessage","Bài viết đã được cập nhật");
-            modelAndView.setViewName("user/suaBaiViet");
+            modelAndView.setViewName("user/sua-bai");
             System.out.println("success!!");
         }
 

@@ -40,21 +40,24 @@ public class HomeController {
         List<Article> articles = articleService.getAll();
         List<Image> images = new ArrayList<>();
         for (Article article : articles){
-            List<PostArticle> pa = postArticleService.findByArticleId(article.getArticleId());
-            if (!pa.isEmpty()){
-                Image img = imageService.findImageByImageId(pa.get(0).getImageId());
-                images.add(img);
-            }else {
-                images.add(null);
-            }
-        }
+            List<PostArticle> postArticles = postArticleService.findByArticleId(article.getArticleId());
+                if (!postArticles.isEmpty()){
+                    Image image = imageService.findImageByImageId(postArticles.get(0).getImageId());
+                    images.add(image);
+                }else {
+                    Image image = new Image();
+                    image.setImageContent("Không có ảnh");
+                    images.add(image);
+                }
 
+        }
+        modelAndView.addObject("imgs",images);
         modelAndView.addObject("articles",articles);
         modelAndView.setViewName("guest/index");
         return modelAndView;
     }
 
-    @GetMapping("/detail/{id}")
+    @GetMapping("/chi-tiet-bai-viet/{id}")
     public ModelAndView getDetail(@PathVariable(name = "id") Long id){
         ModelAndView modelAndView = new ModelAndView();
         Article article = articleService.findArticleById(id);
@@ -77,7 +80,7 @@ public class HomeController {
         modelAndView.addObject("avatar", avatar);
         modelAndView.addObject("article",article);
         modelAndView.addObject("inforUser", informationUser);
-        modelAndView.setViewName("guest/detail");
+        modelAndView.setViewName("guest/chi-tiet-bai-viet");
         return modelAndView;
     }
 }

@@ -194,18 +194,19 @@
 
 
 <div class="col-sm-12">
-    <div class="container">
+    <div class="container" style="margin-top: 3em;">
         <div class="row d-flex justify-content-center">
             <div class="col-sm-6">
                 <div th:each="article : ${articles}">
-                    <div class="col-sm-12 border border-start-0 m-2 p-2" style="height: 20em;">
-                        <a th:href="@{/detail/{id}(id=*{article.getArticleId()})}" style="text-decoration-line: none">
+                    <div class="col-sm-12 border border-start-0" style="height: 21em; margin-bottom: 3em">
+                        <a th:href="@{/chi-tiet-bai-viet/{id}(id=*{article.getArticleId()})}" style="text-decoration-line: none">
                             <div class="row h-100">
-                                <div class="col-sm-5 h-100" style="background-color: #146c43">
+                                <div class="col-sm-5 h-100">
+                                    <img th:src="'data:image/jpeg;base64,'+ *{imgs.get(articles.indexOf(article)).imageContent}" class="h-100 w-100">
 
                                 </div>
-                                <div class="col-sm-7 h-100" style="font-size: 15px; color: rgba(51,51,51,0.9)">
-                                    <h3 th:text="*{article.getTitle()}" class="col-sm-12" style="color: #003e71"></h3>
+                                <div class="col-sm-7 h-100 d-flex flex-column justify-content-center" style="font-size: 15px; color: rgba(51,51,51,1)">
+                                    <h3 th:text="*{article.title}" class="col-sm-12" style="color: #003e71"></h3>
 
                                     <div>
                                         <label>Diện tích :</label>
@@ -221,7 +222,7 @@
                                         <span th:text="*{article.getCity()}"></span>
                                     </div>
 
-                                    <div style="height:35%;overflow: hidden">
+                                    <div style="height:35%;overflow: hidden; font-size: 12px;">
                                         <span th:text="*{article.detail}"></span>
                                         <span>Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,
                                         Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,

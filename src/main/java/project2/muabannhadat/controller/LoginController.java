@@ -1,11 +1,14 @@
 package project2.muabannhadat.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.AuthenticatedPrincipal;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import project2.muabannhadat.configuration.AuthenticationSystem;
 import project2.muabannhadat.model.Avatar;
 import project2.muabannhadat.model.InformationUser;
 import project2.muabannhadat.model.User;
@@ -32,7 +35,9 @@ public class LoginController {
     @GetMapping(value={"/login"})
     public ModelAndView login(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("guest/login");
+        if (AuthenticationSystem.isLogged()){
+        }
+        modelAndView.setViewName("guest/dang-nhap");
         return modelAndView;
     }
 
@@ -41,7 +46,7 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
         modelAndView.addObject("user", user);
-        modelAndView.setViewName("guest/registration");
+        modelAndView.setViewName("guest/dang-ky-tai-khoan");
         return modelAndView;
     }
 
@@ -55,7 +60,7 @@ public class LoginController {
                             "There is already a user registered with the user name provided");
         }
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("guest/registration");
+            modelAndView.setViewName("guest/dang-ky-tai-khoan");
         } else {
             Avatar default_avt = avatarService.findById(1L);
 
@@ -72,7 +77,7 @@ public class LoginController {
             avatarService.save(avatar);
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new User());
-            modelAndView.setViewName("guest/registration");
+            modelAndView.setViewName("guest/dang-ky-tai-khoan");
 
         }
         return modelAndView;

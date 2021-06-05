@@ -10,10 +10,7 @@ import project2.muabannhadat.model.Article;
 import project2.muabannhadat.repository.ArticleRepository;
 
 import java.math.BigInteger;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ArticleService {
@@ -127,8 +124,30 @@ public class ArticleService {
                 "\n Search : " + word + "\n Giá 1: " + gia1 + "\n Giá 2: "+gia2+ "\n Diện tích 1: "+dienTich1+
                 "\n Diệc tích 2: "+dienTich2);
 
-        List<Article> article = articleRepository.findArticle(hinhThuc,loai,khuvuc,word,gia1,gia2,dienTich1,dienTich2);
-        return article;
+        List<Article> articles = articleRepository.findArticle(hinhThuc,loai,khuvuc,gia1,gia2,dienTich1,dienTich2);
+
+        List<Article> list = new ArrayList<>();
+
+        if (!articles.isEmpty()){
+            if (!word.equals("")){
+                String title, city, district, ward, detail;
+                for (Article article : articles){
+                    title = article.getTitle_unsigned();
+                    city = article.getCity_unsigned();
+                    district = article.getDistrict_unsigned();
+                    ward = article.getWard_unsigned();
+                    detail = article.getDetail_unsigned();
+
+                    if (title.contains(word) || city.contains(word)
+                            || district.contains(word) || ward.contains(word) || detail.contains(word)){
+                        list.add(article);
+                    }
+                }
+                return list;
+            }
+        }
+
+        return articles;
     }
 
     public Long countArticle(){

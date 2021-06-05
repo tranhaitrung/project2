@@ -1,8 +1,6 @@
 package project2.muabannhadat.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,7 +51,7 @@ public class AdminController {
 
         modelAndView.addObject("countUser", countUsers);
         modelAndView.addObject("countArticle", countArticles);
-        modelAndView.setViewName("admin/home");
+        modelAndView.setViewName("admin/trang-chu-admin");
         return modelAndView;
     }
 
@@ -62,7 +60,7 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         List<InformationUser> informationUsers = informationUserService.getAll();
         modelAndView.addObject("informationUsers",informationUsers);
-        modelAndView.setViewName("admin/danhSachUser");
+        modelAndView.setViewName("admin/danh-sach-tai-khoan");
         return modelAndView;
 
     }
@@ -102,7 +100,7 @@ public class AdminController {
             modelAndView.addObject("inforUser", user);
             modelAndView.addObject("avatar",avatar);
         }
-        modelAndView.setViewName("admin/detailUser");
+        modelAndView.setViewName("admin/thong-tin-tai-khoan");
         return  modelAndView;
     }
 
@@ -111,7 +109,7 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         List<Article> articles = articleService.getAll();
         modelAndView.addObject("articles",articles);
-        modelAndView.setViewName("admin/danhSachBaiViet");
+        modelAndView.setViewName("admin/danh-sach-bai-viet");
         return  modelAndView;
     }
 
@@ -138,7 +136,7 @@ public class AdminController {
         modelAndView.addObject("avatar", avatar);
         modelAndView.addObject("article",article);
         modelAndView.addObject("inforUser", informationUser);
-        modelAndView.setViewName("admin/detailArticle");
+        modelAndView.setViewName("admin/chi-tiet-bai-viet");
         return modelAndView;
     }
 
@@ -157,7 +155,7 @@ public class AdminController {
         }
         articleService.deleteArticle(article);
         modelAndView.addObject("deleteSuccessMessage","Delete Successfull!");
-        modelAndView.setViewName("admin/danhSachBaiViet");
+        modelAndView.setViewName("admin/danh-sach-bai-viet");
         return modelAndView;
     }
 }

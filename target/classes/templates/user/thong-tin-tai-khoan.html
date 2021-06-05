@@ -24,15 +24,15 @@
         }
     </style>
 
-    <script>
-        $("btnradio").change(function() {
-            var action = $(this).val() === "Bán" ? "/nha-dat-ban" : "/nha-dat-cho-thue";
-            $("#search-form").attr("action", action + "/");
-        });
-    </script>
-
 </head>
 
+<script>
+    function search(){
+        var action = document.getElementsByName("btnradio").value;
+        var act = action === 'Bán' ? 'nha-dat-ban' : 'nhat-dat-cho-thue';
+        var form = document.getElementById("search-form").attributes("action",act);
+    }
+</script>
 
 <body>
 
@@ -59,10 +59,11 @@
             </div>
         </div>
 
+
     </div>
     <div class="col-sm-12">
         <div class="row border-bottom border-start-0">
-            <form th:action="@{/tim-kiem}" id="search-form">
+            <form th:action="@{/tim-kiem/}" id="search-form">
                 <div class="form-floating border-start-0 border-bottom border-end">
                     <div class="col-sm-2 d-flex align-items-center justify-content-center" style="height: 5em">
                         <div class="btn-group w-100 h-75 d-flex align-items-center" role="group"
@@ -109,7 +110,7 @@
                         <div class="form-floating h-80 w-100">
                             <select name="khu-vuc" class="form-select form-control h-100 w-100"
                                     aria-label="Floating label select example" id="select2">
-                                <option selected>Khu vực</option>
+                                <option value="" selected>Khu vực</option>
                                 <option value="Hà Nội">Hà Nội</option>
                                 <option value="Hồ Chí Minh">Hồ Chí Minh</option>
                                 <option value="Đà Nẵng">Đà Nẵng</option>
@@ -152,7 +153,7 @@
                                 <option value="11">5 - 10 tỉ</option>
                                 <option value="12">10 - 20 tỉ</option>
                                 <option value="13">20 - 30 tỉ</option>
-                                <option value="14">> 30 tỉ</option>
+                                <option value="15">> 30 tỉ</option>
                             </select>
                             <label for="select3">Mức Giá</label>
                         </div>
@@ -192,103 +193,13 @@
 </header>
 
 
-
 <div class="col-sm-12">
-    <div class="container" style="color: #333333">
-        <div class="row d-flex justify-content-center" style="margin-top: 3em">
-            <div class="col-sm-6">
-                <div class="w-100">
-                    <div class="col-sm-12" style="height: 40em;">
-                        <div id="carouselExampleIndicators" class="carousel slide w-100 h-100" data-bs-ride="carousel">
-                            <div class="carousel-inner h-100 w-100">
-                                <div class="carousel-item active h-100 w-100">
-                                    <img th:src="'data:image/jpeg;base64,'+ *{images.get(0).imageContent}"
-                                         class="d-block w-100 h-100" alt="...">
-                                </div>
-                                <div class="carousel-item h-100 w-100" th:each="img1 : ${images}">
-                                    <img th:src="'data:image/jpeg;base64,'+ *{img1.imageContent}"
-                                         class="d-block w-100 h-100" alt="...">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-
-                    </div>
-                    <div class="col-sm-12 w-100" style="height: 10em; margin-top: 1em">
-                        <div class="row w-100 h-100">
-                                <div class="col-sm-2 h-100" style="margin-left: 1em" th:each="img : ${images}">
-                                    <img th:src="'data:image/jpeg;base64,'+ *{img.imageContent}" class="h-100 w-100"/>
-                                </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-8" style="font-size: 13px; margin-top: 2.5em">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">User</a></li>
-                            <li class="breadcrumb-item active" aria-current="page" th:text="*{article.title}"></li>
-                        </ol>
-                    </nav>
-                </div>
-                <div class="col-sm-12">
-                    <div class="col-sm-12 border-bottom" style="padding-bottom: 2em">
-                        <h1 th:text="*{article.title}"></h1>
-                    </div>
-                    <div class="col-sm-12" style="font-size: 15px">
-                        <div class="row border-bottom" style="height: 5em">
-                            <div class="col-sm-3 d-flex align-items-center">
-                                <p>Diện tích : </p> <br>
-                                <label th:text="*{article.area}"></label> m2
-                            </div>
-                            <div class="col-sm-3 d-flex align-items-center">
-                                <p>Giá: </p>  <br>
-                                <label th:text="*{article.price}"> </label> VNĐ
-                            </div>
-                            <div class="col-sm-4 d-flex align-items-center" style="text-align: right">
-                                <p>Ngày đăng : </p> <br>
-                                <p th:text="*{article.date_up}"></p>
-                            </div>
-                        </div>
-                        <div class="row border-bottom" style="height: 5em">
-                            <div class="col-sm-4 d-flex align-items-center">
-                                <p>Phường: </p><br>
-                                <p th:text="*{article.ward}"></p>
-                            </div>
-                            <div class="col-sm-4 d-flex align-items-center">
-                                <p>Quận/huyện: </p><br>
-                                <p th:text="*{article.district}"></p>
-                            </div>
-                            <div class="col-sm-4 d-flex align-items-center">
-                                <p>Tỉnh/TP: </p><br>
-                                <p th:text="*{article.city}"></p>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="col-sm-12">
-                            <h3>Thông tin mô tả</h3>
-                        </div>
-                        <div class="col-sm-12">
-                            <span th:text="*{article.detail}"></span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="col-sm-2" style="width: 20%; margin-left: 2em; font-size: 15px;">
-                <div class="col-sm-12 border" style="height: 25em;">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-sm-3" style=" margin-left: 2em; font-size: 15px; margin-top: 2em">
+                <div class="col-sm-12 border" style="height: auto;">
                     <div class="col-sm-12 border-bottom d-flex justify-content-center align-items-center" style="height: 3em; color: #003e71">
-                        <h2>Thông tin liên hệ</h2>
+                        <h2>Thông tin tài khoản</h2>
                     </div>
                     <div class="col-sm-12 w-100 h-25 justify-content-center d-flex" style="margin-top: 1em">
                         <div class="border rounded-circle" style="width: 5em; height: 6em">
@@ -296,8 +207,14 @@
                         </div>
 
                     </div>
-                    <div class="col-sm-12 d-flex align-items-center justify-content-center" style="height: 5em">
-                        <h3 th:text="*{inforUser.userName}"></h3>
+                    <div class="col-sm-12 d-flex align-items-center justify-content-center" style="height: 3em">
+                        Tên tài khoản: <span th:text="*{inforUser.userName}"></span>
+                    </div>
+                    <div class="col-sm-12 d-flex align-items-center justify-content-center" style="height: 3em">
+                        Họ tên: <span th:text="*{inforUser.fullName}"></span>
+                    </div>
+                    <div class="col-sm-12 d-flex align-items-center justify-content-center" style="height: 3em">
+                        Địa chỉ: <span th:text="*{inforUser.address}"></span>
                     </div>
                     <div class="col-sm-12 align-items-center justify-content-center d-flex" >
                         <a type="button" class="btn btn-success d-flex align-items-center justify-content-center"
@@ -314,13 +231,68 @@
 
                 </div>
             </div>
+            <div class="col-sm-8 border-start">
+                <div class="col-sm-12 d-flex justify-content-center align-items-center m-5" style="color: #003e71;" >
+                    <h1>Danh sách bài đăng tài khoản <span th:text="*{inforUser.userName}"></span></h1>
+                </div>
+                <div th:each="article : ${articles}">
+                    <div class="col-sm-12 border" style="height: 20em;margin-bottom: 3em">
+                        <div class="float-end" style="margin-right: -1.2em; margin-top: -1em;">
+                            <button class="border-0" style="background-color: #ffffff; font-size: 20px" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                ...
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item active" th:href="@{/sua-bai-viet/{id}(id = *{article.articleId})}">Chỉnh sửa bài viết</a></li>
+                                <li><a class="dropdown-item" href="#">Xóa bài viết</a></li>
+                            </ul>
+                        </div>
+                        <a th:href="@{/chi-tiet-bai-viet/{id}(id=*{article.getArticleId()})}" style="text-decoration-line: none">
+                            <div class="row h-100">
+                                <div class="col-sm-5 h-100">
+                                    <img th:src="'data:image/jpeg;base64,'+ *{imgs.get(articles.indexOf(article)).imageContent}" class="h-100 w-100">
+                                </div>
+                                <div class="col-sm-7 h-100 p-3" style="font-size: 15px; color: rgba(51,51,51,0.9)">
+                                    <h3 th:text="*{article.getTitle()}" class="col-sm-12" style="color: #003e71"></h3>
+
+                                    <div>
+                                        <label>Diện tích :</label>
+                                        <span th:text="*{article.getArea()}"></span>
+                                    </div>
+                                    <div>
+                                        <label>Giá :</label>
+                                        <span th:text="*{article.getPrice()}"></span>
+                                    </div>
+                                    <div>
+                                        <label>Địa chỉ :</label>
+                                        <span th:text="*{article.getDistrict()}"></span>
+                                        <span th:text="*{article.getCity()}"></span>
+                                    </div>
+
+                                    <div style="height:35%;overflow: hidden">
+                                        <span th:text="*{article.detail}"></span>
+                                        <span>Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,
+                                        Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,
+                                        Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,
+                                        Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,
+                                        Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </a>
+                    </div>
+
+                    <br/>
+
+                </div>
+
+            </div>
+
+
+
         </div>
-
-
-
     </div>
 </div>
-
 
 </body>
 </html>
