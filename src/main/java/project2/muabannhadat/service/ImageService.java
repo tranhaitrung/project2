@@ -24,4 +24,8 @@ public class ImageService {
     public void deleteImage(Image image){
         imageRepository.delete(image);
     }
+
+    public boolean deleteById(Long id){
+        return imageRepository.deleteImageByImageId(id);
+    }
 }

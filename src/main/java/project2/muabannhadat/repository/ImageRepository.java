@@ -9,4 +9,6 @@ import project2.muabannhadat.model.Image;
 public interface ImageRepository extends JpaRepository<Image, Long> {
     Image findImageByImageId(Long id);
 
+    boolean deleteImageByImageId(Long id);
+
 }

@@ -7,4 +7,6 @@ import project2.muabannhadat.model.Avatar;
 @Repository
 public interface AvatarRepository extends JpaRepository<Avatar, Long> {
     Avatar findByUsername(String username);
+
+    Boolean deleteAvatarByUsername(String username);
 }

@@ -210,11 +210,11 @@
 
                                     <div>
                                         <label>Diện tích :</label>
-                                        <span th:text="*{article.getArea()}"></span>
+                                        <span th:text="*{article.getArea()}"> m2</span>
                                     </div>
                                     <div>
                                         <label>Giá :</label>
-                                        <span th:text="*{article.getPrice()}"></span>
+                                        <span th:text="*{article.getPrice()}"> VND</span>
                                     </div>
                                     <div>
                                         <label>Địa chỉ :</label>
@@ -223,12 +223,7 @@
                                     </div>
 
                                     <div style="height:35%;overflow: hidden; font-size: 12px;">
-                                        <span th:text="*{article.detail}"></span>
-                                        <span>Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,
-                                        Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,
-                                        Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,
-                                        Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,
-                                        Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,</span>
+                                        <div th:utext="*{article.detail}"></div>
                                     </div>
                                 </div>
                             </div>

@@ -1,19 +1,20 @@
-package project2.muabannhadat.controller.guestController;
+package project2.muabannhadat.controller.adminController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import project2.muabannhadat.configuration.AuthenticationSystem;
 import project2.muabannhadat.model.*;
 import project2.muabannhadat.service.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RequestMapping(value = "/quan-ly")
 @Controller
-public class ThongTinTaiKhoanController {
+public class AdminChiTietTaiKhoanController {
     @Autowired
     private UserService userService;
 
@@ -35,12 +36,9 @@ public class ThongTinTaiKhoanController {
     @Autowired
     private AvatarService avatarService;
 
-
-    ModelAndView modelAndView = new ModelAndView();
-
-    @GetMapping("/{username}")
-    public ModelAndView thongTinTaiKhoan(@PathVariable("username") String username){
-
+    @GetMapping("/tai-khoan/{username}")
+    public ModelAndView chiTietTaiKhoan(@PathVariable("username") String username){
+        ModelAndView modelAndView = new ModelAndView();
 
         InformationUser user = informationUserService.findInforUserByUsername(username);
 
@@ -73,21 +71,7 @@ public class ThongTinTaiKhoanController {
             modelAndView.addObject("inforUser", user);
             modelAndView.addObject("avatar",avatar);
         }
-        if (AuthenticationSystem.isLogged() && username.equals(AuthenticationSystem.getUsernameLogined())) {
-            modelAndView.setViewName("user/thong-tin-tai-khoan");
-        }else {
-            modelAndView.setViewName("guest/thong-tin-tai-khoan");
-        }
-
-        return modelAndView;
-    }
-
-
-    @GetMapping("/transtion")
-    public ModelAndView transtion(){
-        Article article = new Article();
-        modelAndView.addObject("article",article);
-        modelAndView.setViewName("tmp");
-        return modelAndView;
+        modelAndView.setViewName("admin/thong-tin-tai-khoan");
+        return  modelAndView;
     }
 }

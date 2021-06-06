@@ -1,4 +1,4 @@
-package project2.muabannhadat.controller;
+package project2.muabannhadat.controller.adminController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,23 +7,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import project2.muabannhadat.model.*;
-import project2.muabannhadat.repository.AvatarRepository;
 import project2.muabannhadat.service.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RequestMapping(value = "/quan-ly")
 @Controller
-@RequestMapping("/")
-public class HomeController {
+public class AdminChiTietBaiDangController {
+    @Autowired
+    private UserService userService;
+
     @Autowired
     private InformationUserService informationUserService;
 
     @Autowired
-    private ImageService imageService;
+    private ArticleService articleService;
 
     @Autowired
-    private ArticleService articleService;
+    private ImageService imageService;
 
     @Autowired
     private PostService postService;
@@ -32,38 +34,15 @@ public class HomeController {
     private PostArticleService postArticleService;
 
     @Autowired
-    private AvatarRepository avatarRepository;
-
-    @GetMapping("/")
-    public ModelAndView getHome(){
-        ModelAndView modelAndView = new ModelAndView();
-        List<Article> articles = articleService.getAll();
-        List<Image> images = new ArrayList<>();
-        for (Article article : articles){
-            List<PostArticle> postArticles = postArticleService.findByArticleId(article.getArticleId());
-                if (!postArticles.isEmpty()){
-                    Image image = imageService.findImageByImageId(postArticles.get(0).getImageId());
-                    images.add(image);
-                }else {
-                    Image image = new Image();
-                    image.setImageContent("Không có ảnh");
-                    images.add(image);
-                }
-
-        }
-        modelAndView.addObject("imgs",images);
-        modelAndView.addObject("articles",articles);
-        modelAndView.setViewName("guest/index");
-        return modelAndView;
-    }
+    private AvatarService avatarService;
 
     @GetMapping("/chi-tiet-bai-viet/{id}")
-    public ModelAndView getDetail(@PathVariable(name = "id") Long id){
+    public ModelAndView chiTietBaiViet(@PathVariable("id") Long id){
         ModelAndView modelAndView = new ModelAndView();
         Article article = articleService.findArticleById(id);
         String username = postService.findUsername(id);
         InformationUser informationUser = informationUserService.findInforUserByUsername(username);
-        Avatar avatar = avatarRepository.findByUsername(username);
+        Avatar avatar = avatarService.findByUserName(username);
         List<PostArticle> postArticleList = postArticleService.findByArticleId(id);
         if(article == null || informationUser == null){
             System.out.println("có cái null");
@@ -80,7 +59,7 @@ public class HomeController {
         modelAndView.addObject("avatar", avatar);
         modelAndView.addObject("article",article);
         modelAndView.addObject("inforUser", informationUser);
-        modelAndView.setViewName("guest/chi-tiet-bai-viet");
+        modelAndView.setViewName("admin/chi-tiet-bai-viet");
         return modelAndView;
     }
 }

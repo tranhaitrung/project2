@@ -47,4 +47,7 @@ public class UserService {
         return userRepository.count();
     }
 
+    public boolean deleteByUsername(String username){
+        return userRepository.deleteUserByUserName(username);
+    }
 }

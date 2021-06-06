@@ -5,14 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import project2.muabannhadat.model.InformationUser;
 import project2.muabannhadat.service.*;
-
-import java.util.List;
 
 @RequestMapping(value = "/quan-ly")
 @Controller
-public class QuanLyTaiKhoanController {
+public class AdminHomeController {
     @Autowired
     private UserService userService;
 
@@ -34,13 +31,19 @@ public class QuanLyTaiKhoanController {
     @Autowired
     private AvatarService avatarService;
 
-    @GetMapping("/quan-ly-tai-khoan")
-    public ModelAndView quanLyTaiKhoan(){
+    @GetMapping(value={"/home", ""})
+    public ModelAndView home(){
         ModelAndView modelAndView = new ModelAndView();
-        List<InformationUser> informationUsers = informationUserService.getAll();
-        modelAndView.addObject("informationUsers",informationUsers);
-        modelAndView.setViewName("admin/danh-sach-tai-khoan");
-        return modelAndView;
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        User user = userService.findUserByUserName(auth.getName());
+//        InformationUser user1 = informationUserService.findInforUserByUsername(user.getUserName());
 
+        Long countUsers = userService.countUser();
+        Long countArticles = articleService.countArticle();
+
+        modelAndView.addObject("countUser", countUsers);
+        modelAndView.addObject("countArticle", countArticles);
+        modelAndView.setViewName("admin/trang-chu-admin");
+        return modelAndView;
     }
 }

@@ -45,6 +45,10 @@ public class PostService {
         return post;
     }
 
+    public List<Post> findByUsername(String username){
+        return repository.findAllByUserName(username);
+    }
+
     public void delete(Post post){
         repository.delete(post);
     }

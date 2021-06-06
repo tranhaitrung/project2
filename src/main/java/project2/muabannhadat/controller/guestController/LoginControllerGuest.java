@@ -1,12 +1,11 @@
-package project2.muabannhadat.controller;
+package project2.muabannhadat.controller.guestController;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.AuthenticatedPrincipal;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import project2.muabannhadat.configuration.AuthenticationSystem;
 import project2.muabannhadat.model.Avatar;
@@ -16,13 +15,11 @@ import project2.muabannhadat.service.AvatarService;
 import project2.muabannhadat.service.InformationUserService;
 import project2.muabannhadat.service.UserService;
 
-
 import javax.validation.Valid;
 import java.io.IOException;
 
 @Controller
-public class LoginController {
-
+public class LoginControllerGuest {
     @Autowired
     private UserService userService;
 
@@ -82,5 +79,4 @@ public class LoginController {
         }
         return modelAndView;
     }
-
 }

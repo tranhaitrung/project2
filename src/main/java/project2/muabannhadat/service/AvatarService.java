@@ -28,4 +28,8 @@ public class AvatarService {
         return  repository.findById(id).orElse(null);
     }
 
+    public boolean deleteByUsername(String username){
+        return repository.deleteAvatarByUsername(username);
+    }
+
 }
