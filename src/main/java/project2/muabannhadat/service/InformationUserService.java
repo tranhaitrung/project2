@@ -6,6 +6,7 @@ import project2.muabannhadat.model.Article;
 import project2.muabannhadat.model.InformationUser;
 import project2.muabannhadat.repository.InformationUserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,5 +38,26 @@ public class InformationUserService {
         List<InformationUser> list = informationUserRepository.findAll();
         return list;
     }
+
+    public List<InformationUser> findByIdLike(Long id){
+        return informationUserRepository.findByInforIdIsLike(id);
+    }
+
+    public List<InformationUser> findByUsername(String username){
+        return informationUserRepository.findByUserNameIsLikeIgnoreCase(username);
+    }
+
+    public List<InformationUser> findByPhone(int phone){
+        return informationUserRepository.findByPhone(phone);
+    }
+
+    public List<InformationUser> findByFullName(String fullName){
+        return informationUserRepository.findByFullNameIgnoreCase(fullName);
+    }
+
+    public List<InformationUser> findByEmail(String email){
+        return informationUserRepository.findByEmailIsLikeIgnoreCase(email);
+    }
+
 
 }

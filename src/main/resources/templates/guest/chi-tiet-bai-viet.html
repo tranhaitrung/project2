@@ -43,26 +43,44 @@
 
 <header>
     <div class="col-sm-12">
-        <div class="row d-flex align-items-center" style="font-size:18px">
-            <div class="col-sm-1" style="height:5em; width: 10%;">
-                <img src="http://localhost:8080/images/ttcgroup.png" class="w-100 h-100" alt="LOGO TTCGROUP">
-            </div>
+        <div class="row d-flex align-items-center w-100" style="font-size:18px">
+            <a th:href="@{/}" class="col-sm-1" style="width: 10%">
+                <div style="height:5em; width: 100%;">
+                    <img th:src="@{/images/ttcgroup.png}" class="w-100 h-100" alt="LOGO TTCGROUP">
+                </div>
+            </a>
             <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
-                <a href="">Nhà đất cần bán</a></div>
+                <a th:href="@{/nha-dat-ban}">Nhà đất cần bán</a></div>
             <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
-                <a href="" class="align-middle">Nhà đất cho thuê</a></div>
-            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right;">
-                <a type="button" class="btn btn-outline-dark" th:href="@{/login}">Đăng Nhập</a>
-            </div>
-            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right;">
+                <a th:href="@{/nha-dat-cho-thue}" class="align-middle">Nhà đất cho thuê</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 38em;">
                 <a type="button" class="btn btn-outline-primary" th:href="@{/dang-tin-nha-dat}">Đăng Tin</a>
             </div>
+            <div class="col-sm-1 d-flex align-items-center justify-content-center" style="height:5em; float: right; left: 36em; width: 9em;"
+                 th:if="*{username}">
+                <a class="btn btn-outline-secondary border-0 w-100 d-flex justify-content-center align-items-center" th:href="@{/tai-khoan/{username}(username=*{username})}">
+                    <img th:src="'data:image/jpeg;base64,'+ *{avatar1}" class="rounded-circle" style="width: 2.5em; height: 2.5em">
+                    <p th:text="*{username}" style="font-size: 15px; margin:3px"></p>
+                </a>
+                <div class="dropdown">
+                    <button class="btn border-0 dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><a th:href="@{/cap-nhat-thong-tin}" class="dropdown-item" type="button">Cập nhật thông tin</a></li>
+                        <li><a th:href="@{/doi-mat-khau}" class="dropdown-item" type="button">Đổi mật khẩu</a></li>
+                        <li><a th:href="@{/logout}" class="dropdown-item" type="button">Đăng xuất</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 36em"
+                 th:unless="*{username}">
+                <a type="button" class="btn btn-outline-dark" th:href="@{/login}">Đăng Nhập</a>
+            </div>
         </div>
-
     </div>
     <div class="col-sm-12">
         <div class="row border-bottom border-start-0">
-            <form th:action="@{/tim-kiem}" id="search-form">
+            <form th:action="@{/tim-kiem/}" id="search-form">
                 <div class="form-floating border-start-0 border-bottom border-end">
                     <div class="col-sm-2 d-flex align-items-center justify-content-center" style="height: 5em">
                         <div class="btn-group w-100 h-75 d-flex align-items-center" role="group"
@@ -109,7 +127,7 @@
                         <div class="form-floating h-80 w-100">
                             <select name="khu-vuc" class="form-select form-control h-100 w-100"
                                     aria-label="Floating label select example" id="select2">
-                                <option selected>Khu vực</option>
+                                <option value="" selected>Khu vực</option>
                                 <option value="Hà Nội">Hà Nội</option>
                                 <option value="Hồ Chí Minh">Hồ Chí Minh</option>
                                 <option value="Đà Nẵng">Đà Nẵng</option>
@@ -152,7 +170,7 @@
                                 <option value="11">5 - 10 tỉ</option>
                                 <option value="12">10 - 20 tỉ</option>
                                 <option value="13">20 - 30 tỉ</option>
-                                <option value="14">> 30 tỉ</option>
+                                <option value="15">> 30 tỉ</option>
                             </select>
                             <label for="select3">Mức Giá</label>
                         </div>
@@ -177,10 +195,10 @@
                             <label for="select4">Diện tích</label>
                         </div>
                     </div>
-                    <div class="col-sm-1 d-flex justify-content-center align-items-center"
-                         style="height: 5em; width: 13%;">
-                        <div class="form-floating h-80 w-100">
-                            <button type="submit" class="btn btn-primary">TÌM KIẾM</button>
+                    <div class="col-sm-1 d-flex justify-content-center align-items-center h-100"
+                         style="width: 13%;">
+                        <div class="form-floating h-75 w-100" style="top: 1.3em">
+                            <button type="submit" class="btn btn-primary h-75 w-50">TÌM KIẾM</button>
                         </div>
                     </div>
 
@@ -290,7 +308,7 @@
                     <div class="col-sm-12 border-bottom d-flex justify-content-center align-items-center" style="height: 3em; color: #003e71">
                         <h2>Thông tin liên hệ</h2>
                     </div>
-                    <a th:href="@{/{username}(username=*{inforUser.userName})}">
+                    <a th:href="@{/tai-khoan/{username}(username=*{inforUser.userName})}">
                         <div class="col-sm-12 w-100 h-25 justify-content-center d-flex" style="margin-top: 1em">
                             <div class="border rounded-circle" style="width: 5em; height: 6em">
                                 <img th:src="'data:image/jpeg;base64,'+ *{avatar.image}" class="w-100 h-100 rounded-circle">

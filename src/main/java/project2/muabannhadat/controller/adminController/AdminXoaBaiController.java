@@ -6,10 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import project2.muabannhadat.model.Article;
-import project2.muabannhadat.model.Image;
-import project2.muabannhadat.model.Post;
-import project2.muabannhadat.model.PostArticle;
+import project2.muabannhadat.configuration.AuthenticationSystem;
+import project2.muabannhadat.model.*;
 import project2.muabannhadat.service.*;
 
 import javax.transaction.Transactional;
@@ -53,6 +51,22 @@ public class AdminXoaBaiController {
             postArticleService.delelePostArticle(postArticle);
         }
         articleService.deleteArticle(article);
+
+        /**
+         * Đoạn kiểm tra login
+         */
+        String username1 = AuthenticationSystem.getUsernameLogined();;
+        Avatar avatar1 = new Avatar();
+        avatar1.setImage("abc");
+        if (!username1.equals("anonymousUser")){
+            System.out.println("logined : " + username1);
+            avatar1 = avatarService.findByUserName(username1);
+            modelAndView.addObject("avatar1", avatar1.getImage());
+        }else {
+            username1 = null;
+        }
+        modelAndView.addObject("username", username1);
+
         modelAndView.addObject("deleteSuccessMessage","Delete Successfull!");
         modelAndView.setViewName("admin/danh-sach-bai-viet");
         return modelAndView;

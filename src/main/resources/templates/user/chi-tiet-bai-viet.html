@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link th:src="@{css/style.css}" rel="stylesheet" type="text/css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <style>
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: darkblue;
+        }
+    </style>
+
+    <script>
+        $("btnradio").change(function() {
+            var action = $(this).val() === "Bán" ? "/nha-dat-ban" : "/nha-dat-cho-thue";
+            $("#search-form").attr("action", action + "/");
+        });
+    </script>
+
+</head>
+
+
+<body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+
+<header>
+    <div class="col-sm-12">
+        <div class="row d-flex align-items-center w-100" style="font-size:18px">
+            <a th:href="@{/}" class="col-sm-1" style="width: 10%">
+                <div style="height:5em; width: 100%;">
+                    <img th:src="@{/images/ttcgroup.png}" class="w-100 h-100" alt="LOGO TTCGROUP">
+                </div>
+            </a>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
+                <a th:href="@{/nha-dat-ban}">Nhà đất cần bán</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
+                <a th:href="@{/nha-dat-cho-thue}" class="align-middle">Nhà đất cho thuê</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 38em;">
+                <a type="button" class="btn btn-outline-primary" th:href="@{/dang-tin-nha-dat}">Đăng Tin</a>
+            </div>
+            <div class="col-sm-1 d-flex align-items-center justify-content-center" style="height:5em; float: right; left: 36em; width: 9em;"
+                 th:if="*{username}">
+                <a class="btn btn-outline-secondary border-0 w-100 d-flex justify-content-center align-items-center" th:href="@{/tai-khoan/{username}(username=*{username})}">
+                    <img th:src="'data:image/jpeg;base64,'+ *{avatar1}" class="rounded-circle" style="width: 2.5em; height: 2.5em">
+                    <p th:text="*{username}" style="font-size: 15px; margin:3px"></p>
+                </a>
+                <div class="dropdown">
+                    <button class="btn border-0 dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><a th:href="@{/cap-nhat-thong-tin}" class="dropdown-item" type="button">Cập nhật thông tin</a></li>
+                        <li><a th:href="@{/doi-mat-khau}" class="dropdown-item" type="button">Đổi mật khẩu</a></li>
+                        <li><a th:href="@{/logout}" class="dropdown-item" type="button">Đăng xuất</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 36em"
+                 th:unless="*{username}">
+                <a type="button" class="btn btn-outline-dark" th:href="@{/login}">Đăng Nhập</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="row border-bottom border-start-0">
+            <form th:action="@{/tim-kiem/}" id="search-form">
+                <div class="form-floating border-start-0 border-bottom border-end">
+                    <div class="col-sm-2 d-flex align-items-center justify-content-center" style="height: 5em">
+                        <div class="btn-group w-100 h-75 d-flex align-items-center" role="group"
+                             aria-label="Basic radio toggle button group">
+                            <input type="radio" value="Bán" class="btn-check h-100 w-100" name="btnradio" id="btnradio1"
+                                   autocomplete="off" checked>
+                            <label class="btn btn-outline-primary h-100 w-100 d-flex align-items-center justify-content-center"
+                                   for="btnradio1">BÁN </label>
+
+                            <input type="radio" value="Cho thuê" class="btn-check h-100 w-100" name="btnradio" id="btnradio2"
+                                   autocomplete="off">
+                            <label class="btn btn-outline-primary h-100 w-100 d-flex align-items-center justify-content-center"
+                                   for="btnradio2">CHO THUÊ</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 d-flex align-items-center justify-content-center" style="height: 5em;">
+                        <div class="col h-80 w-100">
+                            <input name="text-input" type="text" class="form-control" aria-label="Sizing example input"
+                                   aria-describedby="inputGroup-sizing-default" placeholder="Tìm địa điểm, khu vực">
+                        </div>
+                    </div>
+                    <div class="col-sm-1 d-flex justify-content-center align-items-center"
+                         style="height: 5em;width: 11%;">
+                        <div class="form-floating h-80 w-100">
+                            <select name="loai" class="form-select form-control "
+                                    aria-label="Floating label select example" id="select1">
+                                <option value="" selected>Loại nhà đất</option>
+                                <option value="Căn hộ chung cư">Căn hộ chung cư</option>
+                                <option value="Nhà riêng">Nhà riêng</option>
+                                <option value="Nhà mặt phố">Nhà mặt phố</option>
+                                <option value="Nhà biệt thự">Nhà biệt thự</option>
+                                <option value="Trang trại, khu nghỉ dưỡng">Trang trại, khu nghỉ dưỡng</option>
+                                <option value="Kho, nhà xưởng">Kho, nhà xưởng</option>
+                                <option value="Nhà trọ, phòng trọ">Nhà trọ, phòng trọ</option>
+                                <option value="Văn phòng">Văn phòng</option>
+                                <option value="Cửa hàng, ki-ốt">Cửa hàng, ki-ốt</option>
+                            </select>
+                            <label for="select1">Loại nhà đất</label>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-1 d-flex justify-content-center align-items-center"
+                         style="height: 5em; width: 11%;">
+                        <div class="form-floating h-80 w-100">
+                            <select name="khu-vuc" class="form-select form-control h-100 w-100"
+                                    aria-label="Floating label select example" id="select2">
+                                <option value="" selected>Khu vực</option>
+                                <option value="Hà Nội">Hà Nội</option>
+                                <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                                <option value="Đà Nẵng">Đà Nẵng</option>
+                                <option value="Cần Thơ">Cần Thơ</option>
+                                <option value="Đồng Nai">Đồng Nai</option>
+                                <option value="Lào Cai">Lào Cai</option>
+                                <option value="Bắc Giang">Bắc Giang</option>
+                                <option value="Bắc Ninh">Bắc Ninh</option>
+                                <option value="Vĩnh Phúc">Vĩnh Phúc</option>
+                                <option value="Hải Dương">Hải Dương</option>
+                                <option value="Long An">Long An</option>
+                                <option value="Sơn La">Sơn La</option>
+                                <option value="Hòa Bình">Hòa Bình</option>
+                                <option value="Nghệ An">Nghệ An</option>
+                                <option value="Thanh Hóa">Thanh Hóa</option>
+                                <option value="Thái Bình">Thái Bình</option>
+                                <option value="Thừa Thiên Huế">Thừa Thiên Huế</option>
+                                <option value="Cà Mau">Cà Mau</option>
+                                <option value="Lạng Sơn">Lạng Sơn</option>
+                            </select>
+                            <label for="select2">Khu vực</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-1 d-flex justify-content-center align-items-center"
+                         style="height: 5em; width: 11%;">
+                        <div class="form-floating h-80 w-100">
+                            <select name="gia" class="form-select form-control"
+                                    aria-label="Floating label select example" id="select3">
+                                <option value="0" selected>Mức Giá</option>
+                                <option value="1">1 - 3 triệu</option>
+                                <option value="2">3 - 5 triệu</option>
+                                <option value="3">5 - 10 triệu</option>
+                                <option value="4">10 - 20 triệu</option>
+                                <option value="5">20 - 50 triệu</option>
+                                <option value="6">50 - 100 triệu</option>
+                                <option value="7">100 - 500 triệu</option>
+                                <option value="8">0,5 - 1 tỉ</option>
+                                <option value="9">1 - 2 tỉ</option>
+                                <option value="10">2 - 5 tỉ</option>
+                                <option value="11">5 - 10 tỉ</option>
+                                <option value="12">10 - 20 tỉ</option>
+                                <option value="13">20 - 30 tỉ</option>
+                                <option value="15">> 30 tỉ</option>
+                            </select>
+                            <label for="select3">Mức Giá</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-1 d-flex justify-content-center align-items-center"
+                         style="height: 5em; width: 11%;">
+                        <div class="form-floating h-80 w-100">
+                            <select name="dien-tich" class="form-select form-control"
+                                    aria-label="Floating label select example" id="select4">
+                                <option value="" selected>Diện tích</option>
+                                <option value="20">0 - 20 m2</option>
+                                <option value="30">20 - 30 m2</option>
+                                <option value="50">30 - 50 m2</option>
+                                <option value="80">50 - 80 m2</option>
+                                <option value="100">80 - 100 m2</option>
+                                <option value="150">100 - 150 m2</option>
+                                <option value="200">150 - 200 m2</option>
+                                <option value="300">200 - 300m2</option>
+                                <option value="500">300 - 500 m2</option>
+                                <option value="501">> 500 m2</option>
+                            </select>
+                            <label for="select4">Diện tích</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-1 d-flex justify-content-center align-items-center h-100"
+                         style="width: 13%;">
+                        <div class="form-floating h-75 w-100" style="top: 1.3em">
+                            <button type="submit" class="btn btn-primary h-75 w-50">TÌM KIẾM</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</header>
+
+
+
+
+<div class="col-sm-12">
+    <div class="container" style="color: #333333">
+
+        <div class="col-sm-12 d-flex align-items-center justify-content-center" th:if="*{successMessage}">
+            <div class="alert border" role="alert" aria-live="assertive" aria-atomic="true" style="width: 40em; height: 10em">
+                <div class="toast-header" style="color: darkred; font-size: 20px">
+                    <i class="glyphicon glyphicon-saved"></i>
+                    <strong class="me-auto">Thông báo</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" style="color: green; font-size: 15px">
+                    <i class="glyphicon glyphicon-ok">  Cập nhật thông tin thành công!</i>
+                </div>
+            </div>
+        </div>
+
+        <div class="row d-flex justify-content-center" style="margin-top: 3em;">
+            <div class="col-sm-3" style=" margin-right: 2em; font-size: 15px; margin-top: 2em; width: 21%">
+                <div class="col-sm-12 border" style="height: auto;">
+                    <div class="col-sm-12 border-bottom d-flex justify-content-center align-items-center"
+                         style="height: 3em; color: #003e71">
+                        <h2>Thông tin tài khoản</h2>
+                    </div>
+                    <a th:href="@{/tai-khoan/{username}(username=*{inforUser.userName})}">
+                        <div class="col-sm-12 w-100 h-25 justify-content-center d-flex" style="margin-top: 1em">
+                            <div class="border rounded-circle" style="width: 5em; height: 6em">
+                                <img th:src="'data:image/jpeg;base64,'+ *{avatar.image}" class="w-100 h-100 rounded-circle">
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 d-flex align-items-center justify-content-center" style="height: 3em">
+                            Tên tài khoản: <span th:text="*{inforUser.userName}"></span>
+                        </div>
+                        <div class="col-sm-12 d-flex align-items-center justify-content-center" style="height: 3em">
+                            Họ tên: <span th:text="*{inforUser.fullName}"></span>
+                        </div>
+                        <div class="col-sm-12 d-flex align-items-center justify-content-center" style="height: 3em">
+                            Địa chỉ: <span th:text="*{inforUser.address}"></span>
+                        </div>
+                    </a>
+                    <div class="col-sm-12 align-items-center justify-content-center d-flex">
+                        <a type="button" class="btn btn-success d-flex align-items-center justify-content-center"
+                           th:href="'tel:' + *{inforUser.phone}" style="font-size: 20px; width: 10em; height: 2.5em">
+                            <p th:text="*{inforUser.phone}"></p>
+                        </a>
+                    </div>
+                    <div class="col-sm-12 d-flex align-items-center justify-content-center" style="margin-top: 2em">
+                        <a type="button" class="btn btn-outline-info d-flex align-items-center justify-content-center"
+                           th:href="'mailto:'+ *{inforUser.email}" style="font-size: 15px; width: 15em; height: 3em">
+                            <p th:text="*{inforUser.email}"></p>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="float-end" style="margin-right: -1.2em; margin-top: -1em;">
+                    <button class="border-0" style="background-color: #ffffff; font-size: 20px" type="button"
+                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        ...
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateModal">
+                            Chỉnh sửa bài viết</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Xóa
+                            bài viết</a></li>
+                    </ul>
+                </div>
+
+                <div class="modal modal-dialog-scrollable" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header" style="font-size: 20px; color: #163c04; font-weight: bold">
+                                <h5 class="modal-title" id="updateModalLabel"><i
+                                        class="glyphicon glyphicon-edit"> Chỉnh sửa bài viết</i></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+
+                            <form id="article-form" method="post" enctype="multipart/form-data"
+                                  th:action="@{/chi-tiet-bai-viet/{id}(id = *{article.articleId})}">
+                            <div class="modal-body">
+                                <div class="col-sm-12">
+                                    <label>Tiêu đề bài viết *</label>
+                                    <input type="text" th:field="*{article.title}" id="title" onchange="validate('title')"
+                                           placeholder="Tiêu đề bài viết" class="form-control"/>
+                                    <label class="validation-message" style="display: none; color: red" id="title-none">* Không được để trống!</label>
+                                </div>
+
+                                <div class="row" style="margin-top: 1em">
+                                    <div class="form-group col-sm-6">
+                                        <div class="col-sm-12">
+                                            <label>Hình thức</label>
+                                            <select name="hinhthuc" class="form-control form-select"
+                                                    aria-label="Floating label select example" id="hinhthuc" th:field="*{article.form}">
+                                                <option value="Bán">Bán</option>
+                                                <option value="Cho thuê">Cho thuê</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <div class="col-sm-12">
+                                            <label>Loại nhà đất</label>
+                                            <select name="loainhadat" class="form-select form-control " th:field="*{article.species}"
+                                                    aria-label="Floating label select example" id="loainhadat">
+                                                <option value="Căn hộ chung cư">Căn hộ chung cư</option>
+                                                <option value="Nhà riêng">Nhà riêng</option>
+                                                <option value="Nhà mặt phố">Nhà mặt phố</option>
+                                                <option value="Nhà biệt thự">Nhà biệt thự</option>
+                                                <option value="Trang trại, khu nghỉ dưỡng">Trang trại, khu nghỉ dưỡng</option>
+                                                <option value="Kho, nhà xưởng">Kho, nhà xưởng</option>
+                                                <option value="Nhà trọ, phòng trọ">Nhà trọ, phòng trọ</option>
+                                                <option value="Văn phòng">Văn phòng</option>
+                                                <option value="Cửa hàng, ki-ốt">Cửa hàng, ki-ốt</option>
+                                                <option value="Bất động sản khác">Bất động sản khác</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-top: 1em">
+                                    <div class="form-group col-sm-6">
+                                        <div class="col-sm-12">
+                                            <label>Diện tích *</label>(đơn vị: m<sup>2</sup>)
+                                            <input type="number" th:field="*{article.area}" id="area" onchange="validate('area')"
+                                                   placeholder="Diện tích" class="form-control"/>
+                                            <label class="validation-message" style="display: none; color: red" id="area-none">* Không được để trống!</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-sm-6">
+                                        <div class="col-sm-12">
+                                            <label>Giá *</label> (Đơn vị: VNĐ)
+                                            <input type="number" th:field="*{article.price}" id="price" onchange="validate('price')"
+                                                   placeholder="Giá tiền" class="form-control"/>
+                                            <label class="validation-message" id="price-none" style="display: none; color: red" >* Không được để trống</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row " style="margin-top: 1em">
+                                    <div class="form-group col-sm-4">
+                                        <div class="col-sm-12">
+                                            <label>Tỉnh/TP *</label>
+                                            <input type="text" th:field="*{article.city}" id="city" onchange="validate('city')"
+                                                   placeholder="Tỉnh/Thành phố" class="form-control"/>
+                                            <label class="validation-message" style="display: none; color: red" id="city-none">* Không được để trống!</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <div class="col-sm-12">
+                                            <label>Quận/Huyện *</label>
+                                            <input type="text" th:field="*{article.district}" id="district" onchange="validate('district')"
+                                                   placeholder="Quận/Huyện" class="form-control"/>
+                                            <label class="validation-message" style="display: none; color: red" id="district-none">* Không được để trống!</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <div class="col-sm-12">
+                                            <label>Phường/Xã *</label>
+                                            <input type="text" th:field="*{article.ward}" id="ward" onchange="validate('ward')"
+                                                   placeholder="Phường/Xã" class="form-control"/>
+                                            <label class="validation-message" style="display: none; color: red" id="ward-none">* Không được để trống!</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-top: 1em">
+                                    <div class="col-sm-12">
+                                        <label for="detail">Mô tả chi tiết*</label>
+                                        <textarea type="text" name="detail" th:field="*{article.detail}" id="detail" onchange="validate('detail')"
+                                                  placeholder="Mô tả chi tiết" class="form-control"></textarea>
+                                        <!--                            <script>CKEDITOR.replace('detail')</script>-->
+                                        <label class="validation-message" style="display: none; color: red" id="detail-none">* Không được để trống!</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-top: 2em">
+                                    <p><input type="file" accept="image / *" name="files" id="files" onchange="loadFile (event)"
+                                              style="display: none;" multiple></p>
+                                    <p><label for="files" style="cursor: pointer; margin-top: 2em;"> Tải lên Hình ảnh </label></p>
+                                    <div id="showImage" class="d-flex flex-wrap">
+                                        <div th:each="image1 : ${images}" >
+                                            <img style="width: 145px; height: 145px; margin:5px;" th:src="'data:image/jpeg;base64,'+ *{image1.imageContent}">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
+                                        class="glyphicon glyphicon-remove"> Hủy</i></button>
+                                <button type="button" onclick="submit()"
+                                   class="btn btn-success"><i class="glyphicon glyphicon-refresh"> Cập nhật</i></button>
+                            </div>
+                            </form>
+
+                      </div>
+                    </div>
+                </div>
+
+
+                <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header" style="font-size: 20px; color: red; font-weight: bold">
+                                <h5 class="modal-title" id="exampleModalLabel"><i
+                                        class="glyphicon glyphicon-warning-sign"> Cảnh báo</i></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Bạn thực sự muốn xóa bài viết?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
+                                        class="glyphicon glyphicon-remove"> Hủy</i></button>
+                                <a th:href="@{/xoa-bai-viet/{id}(id = *{article.articleId})}" type="button"
+                                   class="btn btn-danger"><i class="glyphicon glyphicon-trash"> Xóa</i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-100">
+                    <div class="col-sm-12" style="height: 40em;">
+                        <div id="carouselExampleIndicators" class="carousel slide w-100 h-100" data-bs-ride="carousel">
+                            <div class="carousel-inner h-100 w-100">
+                                <div class="carousel-item active h-100 w-100">
+                                    <img th:src="'data:image/jpeg;base64,'+ *{images.get(0).imageContent}"
+                                         class="d-block w-100 h-100" alt="...">
+                                </div>
+                                <div class="carousel-item h-100 w-100" th:each="img1 : ${images}">
+                                    <img th:src="'data:image/jpeg;base64,'+ *{img1.imageContent}"
+                                         class="d-block w-100 h-100" alt="...">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-12 w-100" style="height: 8em; margin-top: 1em">
+                        <div class="row w-100 h-100">
+                            <div class="col-sm-2 h-100" style="margin-left: 1em" th:each="img : ${images}">
+                                <img th:src="'data:image/jpeg;base64,'+ *{img.imageContent}" class="h-100 w-100"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8" style="font-size: 13px; margin-top: 2.5em">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">User</a></li>
+                            <li class="breadcrumb-item active" aria-current="page" th:text="*{article.title}"></li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-12 border-bottom" style="padding-bottom: 2em">
+                        <h1 th:text="*{article.title}"></h1>
+                    </div>
+                    <div class="col-sm-12" style="font-size: 15px">
+                        <div class="row border-bottom" style="height: 5em">
+                            <div class="col-sm-3">
+                                <p>Diện tích</p>
+                                <label th:text="*{article.area}"></label> m<sup>2</sup>
+                            </div>
+                            <div class="col-sm-3">
+                                <p>Giá</p>
+                                <label th:text="*{article.price}"> </label> VNĐ
+                            </div>
+                            <div class="col-sm-4" style="text-align: right">
+                                <p>Ngày đăng</p>
+                                <p th:text="*{article.date_up}"></p>
+                            </div>
+                        </div>
+                        <div class="row border-bottom" style="height: 5em">
+                            <div class="col-sm-4">
+                                <p>Phường: </p>
+                                <p th:text="*{article.ward}"></p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p>Quận/huyện: </p>
+                                <p th:text="*{article.district}"></p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p>Tỉnh/TP: </p>
+                                <p th:text="*{article.city}"></p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-12" style="top: 2em; margin-bottom: 5em;">
+                        <div class="col-sm-12">
+                            <h3>Thông tin mô tả</h3>
+                        </div>
+                        <div class="col-sm-12" style="font-size: 15px">
+                            <div th:utext="*{article.detail}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+</body>
+
+<script language="javascript" type="text/javascript">
+    window.onload = function () {
+        var fileUpload = document.getElementById("files");
+        fileUpload.onchange = function () {
+            if (typeof (FileReader) != "undefined") {
+                var dvPreview = document.getElementById("showImage");
+                dvPreview.innerHTML = "";
+                var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+                for (var i = 0; i < fileUpload.files.length; i++) {
+                    var file = fileUpload.files[i];
+                    if (regex.test(file.name.toLowerCase()) || true) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            var img = document.createElement("IMG");
+                            img.height = "145";
+                            img.width = "145";
+                            img.src = e.target.result;
+                            img.style.margin = "5px";
+                            dvPreview.appendChild(img);
+                        }
+                        reader.readAsDataURL(file);
+                    } else {
+                        alert(file.name + " is not a valid image file.");
+                        dvPreview.innerHTML = "";
+                        return false;
+                    }
+                }
+            } else {
+                alert("This browser does not support HTML5 FileReader.");
+            }
+        }
+    };
+
+    function validate(id){
+        var d = document.getElementById(id).value;
+        var id_note = id + "-none";
+        console.log(id_note);
+        if (d === ''){
+            document.getElementById(id_note).style.display = "block";
+            return true;
+        }else {
+            document.getElementById(id_note).style.display = "none";
+        }
+    }
+
+    function submit(){
+        var title = document.getElementById("title");
+        var city  = document.getElementById("city");
+        var district = document.getElementById("district");
+        var ward = document.getElementById("ward");
+        var area = document.getElementById("area");
+        var price = document.getElementById("price");
+        var detail = document.getElementById("detail");
+
+        var check = true;
+
+        console.log(title.value);
+        console.log(check);
+
+        if (title.value === ''){
+            check = false;
+            document.getElementById("title-none").style.display = "block";
+        }
+        if (city.value === ''){
+            document.getElementById("city-none").style.display = "block";
+            check = false;
+        }
+        if (district.value === ''){
+            document.getElementById("district-none").style.display = "block";
+            check = false;
+        }
+        if (ward.value === ''){
+            document.getElementById("ward-none").style.display = "block";
+            check = false;
+        }
+        if (area.value === ''){
+            document.getElementById("area-none").style.display = "block";
+            check = false;
+        }
+        if (price.value === ''){
+            document.getElementById("price-none").style.display = "block";
+            check = false;
+        }
+        if (detail.value === ''){
+            document.getElementById("detail-none").style.display = "block";
+            check = false;
+        }
+
+        if (check === true){
+            document.getElementById("article-form").submit();
+        }
+    }
+</script>
+</html>

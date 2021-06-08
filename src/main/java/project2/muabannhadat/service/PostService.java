@@ -37,7 +37,7 @@ public class PostService {
             }
             return articleIds;
         }
-        return null;
+        return new ArrayList<>();
     }
 
     public Post findByArticleId(Long id){
@@ -46,8 +46,11 @@ public class PostService {
     }
 
     public List<Post> findByUsername(String username){
-        return repository.findAllByUserName(username);
+        List<Post> posts =  repository.findAllByUserName(username);
+        if (!posts.isEmpty()) return posts;
+        return new ArrayList<>();
     }
+
 
     public void delete(Post post){
         repository.delete(post);

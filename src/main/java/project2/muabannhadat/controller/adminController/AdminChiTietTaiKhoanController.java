@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import project2.muabannhadat.configuration.AuthenticationSystem;
 import project2.muabannhadat.model.*;
 import project2.muabannhadat.service.*;
 
@@ -50,7 +51,8 @@ public class AdminChiTietTaiKhoanController {
 
         List<Article> articles = new ArrayList<>();
         List<Image> images = new ArrayList<>();
-
+        System.out.println(listArticleId.size());
+        System.out.println(user.getFullName());
         if (!listArticleId.isEmpty()){
             int size = listArticleId.size();
             for (int i = 0; i < size; i++){
@@ -71,6 +73,24 @@ public class AdminChiTietTaiKhoanController {
             modelAndView.addObject("inforUser", user);
             modelAndView.addObject("avatar",avatar);
         }
+
+
+        /**
+         * Đoạn kiểm tra login
+         */
+        String username1 = AuthenticationSystem.getUsernameLogined();;
+        Avatar avatar1 = new Avatar();
+        avatar1.setImage("abc");
+        if (!username1.equals("anonymousUser")){
+            System.out.println("logined : " + username1);
+            avatar1 = avatarService.findByUserName(username1);
+            modelAndView.addObject("avatar1", avatar1.getImage());
+        }else {
+            username1 = null;
+        }
+        modelAndView.addObject("username", username1);
+
+
         modelAndView.setViewName("admin/thong-tin-tai-khoan");
         return  modelAndView;
     }

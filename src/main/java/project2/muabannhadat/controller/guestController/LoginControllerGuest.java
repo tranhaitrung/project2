@@ -1,6 +1,8 @@
 package project2.muabannhadat.controller.guestController;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import project2.muabannhadat.service.AvatarService;
 import project2.muabannhadat.service.InformationUserService;
 import project2.muabannhadat.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 
@@ -38,34 +41,49 @@ public class LoginControllerGuest {
         return modelAndView;
     }
 
-    @GetMapping(value="/registration")
+    @GetMapping(value="/dang-ky-tai-khoan")
     public ModelAndView registration(){
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
+        InformationUser informationUser = new InformationUser();
         modelAndView.addObject("user", user);
+        modelAndView.addObject("inforUser", informationUser);
         modelAndView.setViewName("guest/dang-ky-tai-khoan");
         return modelAndView;
     }
 
-    @PostMapping(value = "/registration")
-    public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) throws IOException {
+
+
+    @PostMapping(value = "/dang-ky-tai-khoan")
+    public ModelAndView createNewUser(@Valid User user,InformationUser informationUser, BindingResult bindingResult) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
+        System.out.println(user.getUserName());
         User userExists = userService.findUserByUserName(user.getUserName());
+
+        System.out.println(user.getUserName());
+        System.out.println(user.getPassword());
+        System.out.println(informationUser.getFullName());
+        System.out.println(informationUser.getDob());
+        System.out.println(informationUser.getPhone());
+        System.out.println(informationUser.getEmail());
+        System.out.println(informationUser.getAddress());
+
         if (userExists != null) {
-            bindingResult
-                    .rejectValue("userName", "error.user",
-                            "There is already a user registered with the user name provided");
+            modelAndView.addObject("user", new User());
+            modelAndView.addObject("inforUser", new InformationUser());
+            modelAndView.addObject("errorMessage", "Tên tài khoản đã tồn tại!");
+            modelAndView.setViewName("guest/dang-ky-tai-khoan");
+            return modelAndView;
         }
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("guest/dang-ky-tai-khoan");
         } else {
             Avatar default_avt = avatarService.findById(1L);
 
-            InformationUser u = new InformationUser();
             Avatar avatar = new Avatar();
 
-            u.setUserName(user.getUserName());
-            informationUserService.saveInforUser(u);
+            informationUser.setUserName(user.getUserName());
+            informationUserService.saveInforUser(informationUser);
 
             avatar.setUsername(user.getUserName());
             avatar.setImage(default_avt.getImage());
@@ -74,6 +92,7 @@ public class LoginControllerGuest {
             avatarService.save(avatar);
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new User());
+            modelAndView.addObject("inforUser", new InformationUser());
             modelAndView.setViewName("guest/dang-ky-tai-khoan");
 
         }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
+import project2.muabannhadat.configuration.AuthenticationSystem;
 import project2.muabannhadat.model.*;
 import project2.muabannhadat.repository.AvatarRepository;
 import project2.muabannhadat.service.*;
@@ -26,6 +27,9 @@ public class ChiTietBaiVietController {
     private PostArticleService postArticleService;
     @Autowired
     private AvatarRepository avatarRepository;
+
+    @Autowired
+    private AvatarService avatarService;
 
     @GetMapping("/chi-tiet-bai-viet/{id}")
     public ModelAndView getDetail(@PathVariable(name = "id") Long id){
@@ -50,7 +54,27 @@ public class ChiTietBaiVietController {
         modelAndView.addObject("avatar", avatar);
         modelAndView.addObject("article",article);
         modelAndView.addObject("inforUser", informationUser);
-        modelAndView.setViewName("guest/chi-tiet-bai-viet");
+
+        /**
+         * Đoạn kiểm tra login
+         */
+        String username1 = AuthenticationSystem.getUsernameLogined();;
+        Avatar avatar1 = new Avatar();
+        avatar1.setImage("abc");
+        if (!username1.equals("anonymousUser")){
+            System.out.println("logined : " + username1);
+            avatar1 = avatarService.findByUserName(username1);
+            modelAndView.addObject("avatar1", avatar1.getImage());
+        }else {
+            username1 = null;
+        }
+        modelAndView.addObject("username", username1);
+
+        if (AuthenticationSystem.isLogged() && username.equals(AuthenticationSystem.getUsernameLogined()) ){
+            modelAndView.setViewName("user/chi-tiet-bai-viet");
+        }else {
+            modelAndView.setViewName("guest/chi-tiet-bai-viet");
+        }
         return modelAndView;
     }
 

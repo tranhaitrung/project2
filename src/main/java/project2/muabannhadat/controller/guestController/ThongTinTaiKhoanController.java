@@ -38,9 +38,10 @@ public class ThongTinTaiKhoanController {
 
     ModelAndView modelAndView = new ModelAndView();
 
-    @GetMapping("/{username}")
+    @GetMapping("/tai-khoan/{username}")
     public ModelAndView thongTinTaiKhoan(@PathVariable("username") String username){
 
+        System.out.println("controller Thong tin tài khoan");
 
         InformationUser user = informationUserService.findInforUserByUsername(username);
 
@@ -73,6 +74,24 @@ public class ThongTinTaiKhoanController {
             modelAndView.addObject("inforUser", user);
             modelAndView.addObject("avatar",avatar);
         }
+
+
+        /**
+         * Đoạn kiểm tra login
+         */
+        String username1 = AuthenticationSystem.getUsernameLogined();;
+        Avatar avatar1 = new Avatar();
+        avatar1.setImage("abc");
+        if (!username1.equals("anonymousUser")){
+            System.out.println("logined : " + username1);
+            avatar1 = avatarService.findByUserName(username1);
+            modelAndView.addObject("avatar1", avatar1.getImage());
+        }else {
+            username1 = null;
+        }
+        modelAndView.addObject("username", username1);
+
+
         if (AuthenticationSystem.isLogged() && username.equals(AuthenticationSystem.getUsernameLogined())) {
             modelAndView.setViewName("user/thong-tin-tai-khoan");
         }else {

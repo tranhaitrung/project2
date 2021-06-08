@@ -34,11 +34,6 @@ public class User {
     @NotEmpty(message = "*Vui lòng nhập mật khẩu")
     private String password;
 
-    @NotEmpty(message = "*Vui lòng cung cấp số điện thoại")
-    @Column(name = "phone")
-    private String phone;
-
-
     @Column(name = "active")
     private Boolean active;
 

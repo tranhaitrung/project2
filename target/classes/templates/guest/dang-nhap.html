@@ -3,37 +3,100 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Spring Security Tutorial</title>
+    <title>ĐĂNG NHẬP</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link th:src="@{/css/style.css}" rel="stylesheet" type="text/css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    <style>
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: darkblue;
+        }
+
+        .fade {
+            opacity: 1;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"></script>
 </head>
 
 <body>
-<form th:action="@{/registration}" method="get">
-    <button class="btn btn-md btn-warning btn-block" type="Submit">Go To Registration Page</button>
-</form>
-
-<div class="container">
-    <img th:src="@{images/ttcgroup.png}" class="img-responsive center-block" width="300" height="300" alt="Logo"/>
-
-    <form th:action="@{/login}" method="POST" class="form-signin">
-        <h3 class="form-signin-heading" th:text="Welcome"></h3>
-        <br/>
-
-        <input type="text" id="user_name" name="user_name" placeholder="User Name"
-               class="form-control"/> <br/>
-        <input type="password" th:placeholder="Password"
-               id="password" name="password" class="form-control"/> <br/>
-
-        <div align="center" th:if="${param.error}">
-            <p style="font-size: 20px; color: #FF1C19;">User Name or Password invalid, please verify</p>
+<header class="border-bottom">
+    <div class="col-sm-12 border-bottom">
+        <div class="row d-flex align-items-center w-100" style="font-size:18px">
+            <a th:href="@{/}" class="col-sm-1" style="width: 10%">
+                <div style="height:5em; width: 100%;">
+                    <img th:src="@{/images/ttcgroup.png}" class="w-100 h-100" alt="LOGO TTCGROUP">
+                </div>
+            </a>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
+                <a th:href="@{/nha-dat-ban}">Nhà đất cần bán</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
+                <a th:href="@{/nha-dat-cho-thue}" class="align-middle">Nhà đất cho thuê</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 40em;">
+                <a type="button" class="btn btn-outline-primary" th:href="@{/dang-tin-nha-dat}">Đăng Tin</a>
+            </div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 40em">
+                <a type="button" class="btn btn-outline-dark" th:href="@{/login}">Đăng Nhập</a>
+            </div>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit"
-                th:text="Login"></button>
-    </form>
+    </div>
+</header>
+<div class="container">
+    <div class="row justify-content-center" style="margin-top: 15em">
+        <div class="col-sm-4" style="height: 35em">
+            <img th:src="@{/images/ttcgroup.png}" class="w-100 h-100 w-100">
+        </div>
+        <div class="col-sm-6 border">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-link active" th:href="@{/login}"
+                            type="button" role="tab" aria-selected="true" style="font-size: 25px; color: #0a53be; font-weight: 500">Đăng nhập
+                    </a>
+                    <a class="nav-link" th:href="@{/dang-ky-tai-khoan}"
+                            type="button" role="tab"  aria-selected="false" style="font-size: 25px; color: #333333; font-weight: 500">Đăng ký
+                    </a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane d-flex flex-column align-items-center justify-content-center"
+                     id="nav-login" role="tabpanel">
+                    <div align="center" th:if="${param.errors}" class="col-sm-12" style="margin-top: 2em">
+                        <p style="font-size: 15px; color: #FF1C19;">Tài khoản hoặc mật khẩu không chính xác!</p>
+                        <p style="font-size: 15px; color: #FF1C19;"><strong>Hoặc</strong> tài khoản của bạn đã bị vô hiệu hóa do vi phạm điều khoản sử dụng. <br>
+                            Vui lòng liên hệ admin để tiếp tục sử dụng dịch vụ!</p>
+                    </div>
+                    <form th:action="@{/login}" method="POST" class="form-signin w-50 d-flex flex-column align-items-center justify-content-center" style="margin-top: 4em">
+                        <input type="text" id="user_name" name="user_name" placeholder="User Name"
+                               class="form-control d-block" /> <br/>
+                        <input type="password" th:placeholder="Password"
+                               id="password" name="password" class="form-control"/> <br/>
+                        <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit"
+                                th:text="Login"></button>
+                    </form>
+                    <div align="center" style="margin-top: 1em; margin-bottom: 1em; font-size: 13px"><a>Quên mật khẩu?</a></div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
 </div>
+
 </body>
 </html>

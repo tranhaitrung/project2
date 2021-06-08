@@ -12,6 +12,10 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"></script>
+
     <style>
 
         a {
@@ -34,32 +38,53 @@
     }
 </script>
 
+<script>
+    var myModal = document.getElementById('myModal')
+    var myInput = document.getElementById('myInput')
+
+    myModal.addEventListener('shown.bs.modal', function () {
+        myInput.focus()
+    })
+</script>
+
 <body>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-        crossorigin="anonymous"></script>
-
 
 <header>
     <div class="col-sm-12">
-        <div class="row d-flex align-items-center" style="font-size:18px">
-            <div class="col-sm-1" style="height:5em; width: 10%;">
-                <img th:src="@{images/ttcgroup.png}" class="w-100 h-100" alt="LOGO TTCGROUP">
-            </div>
+        <div class="row d-flex align-items-center w-100" style="font-size:18px">
+            <a th:href="@{/}" class="col-sm-1" style="width: 10%">
+                <div style="height:5em; width: 100%;">
+                    <img th:src="@{/images/ttcgroup.png}" class="w-100 h-100" alt="LOGO TTCGROUP">
+                </div>
+            </a>
             <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
-                <a href="">Nhà đất cần bán</a></div>
+                <a th:href="@{/nha-dat-ban}">Nhà đất cần bán</a></div>
             <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
-                <a href="" class="align-middle">Nhà đất cho thuê</a></div>
-            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right;">
-                <a type="button" class="btn btn-outline-dark" th:href="@{/login}">Đăng Nhập</a>
-            </div>
-            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right;">
+                <a th:href="@{/nha-dat-cho-thue}" class="align-middle">Nhà đất cho thuê</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 38em;">
                 <a type="button" class="btn btn-outline-primary" th:href="@{/dang-tin-nha-dat}">Đăng Tin</a>
             </div>
+            <div class="col-sm-1 d-flex align-items-center justify-content-center" style="height:5em; float: right; left: 36em; width: 9em;"
+                 th:if="*{username}">
+                <a class="btn btn-outline-secondary border-0 w-100 d-flex justify-content-center align-items-center" th:href="@{/tai-khoan/{username}(username=*{username})}">
+                    <img th:src="'data:image/jpeg;base64,'+ *{avatar1}" class="rounded-circle" style="width: 2.5em; height: 2.5em">
+                    <p th:text="*{username}" style="font-size: 15px; margin:3px"></p>
+                </a>
+                <div class="dropdown">
+                    <button class="btn border-0 dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><a th:href="@{/cap-nhat-thong-tin}" class="dropdown-item" type="button">Cập nhật thông tin</a></li>
+                        <li><a th:href="@{/doi-mat-khau}" class="dropdown-item" type="button">Đổi mật khẩu</a></li>
+                        <li><a th:href="@{/logout}" class="dropdown-item" type="button">Đăng xuất</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 36em"
+                th:unless="*{username}">
+                <a type="button" class="btn btn-outline-dark" th:href="@{/login}">Đăng Nhập</a>
+            </div>
         </div>
-
-
     </div>
     <div class="col-sm-12">
         <div class="row border-bottom border-start-0">
@@ -178,10 +203,10 @@
                             <label for="select4">Diện tích</label>
                         </div>
                     </div>
-                    <div class="col-sm-1 d-flex justify-content-center align-items-center"
-                         style="height: 5em; width: 13%;">
-                        <div class="form-floating h-80 w-100">
-                            <button type="submit" class="btn btn-primary">TÌM KIẾM</button>
+                    <div class="col-sm-1 d-flex justify-content-center align-items-center h-100"
+                         style="width: 13%;">
+                        <div class="form-floating h-75 w-100" style="top: 1.3em">
+                            <button type="submit" class="btn btn-primary h-75 w-50">TÌM KIẾM</button>
                         </div>
                     </div>
 
@@ -205,7 +230,7 @@
                                     <img th:src="'data:image/jpeg;base64,'+ *{imgs.get(articles.indexOf(article)).imageContent}" class="h-100 w-100">
 
                                 </div>
-                                <div class="col-sm-7 h-100 d-flex flex-column justify-content-center" style="font-size: 15px; color: rgba(51,51,51,1)">
+                                <div class="col-sm-7 d-flex flex-column justify-content-center" style="font-size: 15px; color: rgba(51,51,51,1); height: 90%; margin-top: 2%">
                                     <h3 th:text="*{article.title}" class="col-sm-12" style="color: #003e71"></h3>
 
                                     <div>
@@ -242,7 +267,6 @@
                         <h4>Lọc theo khoảng giá</h4>
                     </div>
                     <div class="col-sm-12">
-                        <a>Giá thỏa thuận</a> <br>
                         <a> 1 - 3 triệu</a> <br>
                         <a> 3 - 5 triêu</a> <br>
                         <a> 5 - 10 triệu</a> <br>
@@ -283,7 +307,6 @@
 
     </div>
 </div>
-
 
 </body>
 </html>

@@ -42,7 +42,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/","/login","/detail/**").permitAll()
                 .antMatchers("/tim-kiem/**", "/nha-dat-ban/**", "/nha-dat-cho-thue/**").permitAll()
                 .antMatchers("/registration").permitAll()
-                .antMatchers("/quan-ly/**").hasAuthority("ADMIN")
+//                .antMatchers("/quan-ly/**").hasAuthority("ADMIN")
                 .antMatchers("/cap-nhat-thong-tin/**").authenticated()
                 .antMatchers("/dang-tin-nha-dat/**").authenticated()
                 .anyRequest().permitAll()

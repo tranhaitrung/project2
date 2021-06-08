@@ -44,6 +44,23 @@ public class DangBaiController {
         username = AuthenticationSystem.getUsernameLogined();
         ModelAndView modelAndView = new ModelAndView();
         InformationUser informationUser = informationUserService.findInforUserByUsername(username);
+
+        /**
+         * Đoạn kiểm tra login
+         */
+        String username1 = AuthenticationSystem.getUsernameLogined();;
+        Avatar avatar1 = new Avatar();
+        avatar1.setImage("abc");
+        if (!username1.equals("anonymousUser")){
+            System.out.println("logined : " + username1);
+            avatar1 = avatarService.findByUserName(username1);
+            modelAndView.addObject("avatar1", avatar1.getImage());
+        }else {
+            username1 = null;
+        }
+        modelAndView.addObject("username", username1);
+
+
         if(informationUser.getFullName() == null){
             Avatar avatar = avatarService.findByUserName(username);
             String avt = avatar.getImage();
@@ -113,6 +130,24 @@ public class DangBaiController {
 
                         });
             }
+
+
+            /**
+             * Đoạn kiểm tra login
+             */
+            String username1 = AuthenticationSystem.getUsernameLogined();;
+            Avatar avatar1 = new Avatar();
+            avatar1.setImage("abc");
+            if (!username1.equals("anonymousUser")){
+                System.out.println("logined : " + username1);
+                avatar1 = avatarService.findByUserName(username1);
+                modelAndView.addObject("avatar1", avatar1.getImage());
+            }else {
+                username1 = null;
+            }
+            modelAndView.addObject("username", username1);
+
+
             modelAndView.addObject("inforUser",informationUser);
             modelAndView.addObject("article",new Article());
             modelAndView.addObject("successMessage","Đăng tin thành công!");

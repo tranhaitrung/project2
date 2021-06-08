@@ -32,7 +32,9 @@ public class UserService {
 
 
     public User findUserByUserName(String userName) {
-        return userRepository.findByUserName(userName);
+        User user = userRepository.findByUserName(userName);
+        if (user != null) return user;
+        return null;
     }
 
     public User saveUser(User user) {

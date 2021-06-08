@@ -1,78 +1,255 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Registration Form</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"/>
+    <title>ĐĂNG NHẬP</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script language="JavaScript" src="../static/scripts/valid.js"></script>
+    <link th:src="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: darkblue;
+        }
+    </style>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+    <script>
+        function submit() {
+            var check = validate();
+            if(check === true) {
+                document.getElementById('resign-form').submit();
+            } else {
+                alert("Vui lòng nhập lại thông tin!")
+            }
+        }
+
+        function validate(){
+            var username = document.getElementById('user_name').value;
+            var pass = document.getElementById('password').value;
+            var re_pass = document.getElementById('re-password').value;
+            var name = document.getElementById('name').value;
+            var dob = document.getElementById('dob').value;
+            var address = document.getElementById('address').value;
+            var phone = document.getElementById('phone').value;
+            var email = document.getElementById('email').value;
+            var check = true;
+
+            if(username === '') {
+                document.getElementById('user_name_notice').style.display = "block";
+                check = false;
+            }else {
+                if (username.length < 6 && username.length > 0){
+                    document.getElementById('user_name_min').style.display = "block"
+                    check = false;
+                }else {
+                    document.getElementById('user_name_min').style.display = "none"
+                    check = true;
+                }
+                document.getElementById('user_name_notice').style.display = "none";
+            }
+            if(pass === '') {
+                document.getElementById('password_notice').style.display = "block";
+                check = false;
+            }else {
+                if (pass.length < 6 && pass.length > 0){
+                    document.getElementById('password_notice_min').style.display = "block";
+                    check = false;
+                }else {
+                    document.getElementById('password_notice_min').style.display = "none";
+                    check = true;
+                }
+                document.getElementById('password_notice').style.display = "none";
+            }
+            if(re_pass === '') {
+                document.getElementById('re_pass_notice').style.display = "block";
+                check = false;
+            }else {
+                if(pass !== re_pass) {
+                    document.getElementById('re_pass').style.display = "block";
+                    check = false;
+                }else {
+                    document.getElementById('re_pass').style.display = "none";
+                    check = true;
+                }
+                document.getElementById('re_pass_notice').style.display = "none";
+            }
+            if(name === '') {
+                document.getElementById('name_notice').style.display = "block";
+                check = false;
+            }else {
+                document.getElementById('name_notice').style.display = "none";
+
+            }
+            if(dob === '') {
+                document.getElementById('dob_notice').style.display = "block";
+                check = false;
+            }else {
+                document.getElementById('dob_notice').style.display = "none";
+            }
+            if(phone === '') {
+                document.getElementById('phone_notice').style.display = "block";
+                check = false;
+            }else {
+                if (phone.length === 10){
+                    document.getElementById('phone_notice').style.display = "none";
+                    check = true;
+                }else {
+                    document.getElementById('phone_notice').style.display = "none";
+                    check = false;
+                }
+
+            }
+            if(email === '') {
+                document.getElementById('email_notice').style.display = "block";
+                check = false;
+            }else {
+                document.getElementById('email_notice').style.display = "none";
+            }
+            if(address === '') {
+                document.getElementById('address_notice').style.display = "block";
+                check = false;
+            }else {
+                document.getElementById('address_notice').style.display = "none";
+            }
+            console.log(check);
+            console.log(username);
+            console.log(pass);
+            console.log(name);
+            console.log(dob);
+            console.log(phone);
+            console.log(email);
+            console.log(address);
+            return check;
+        }
+    </script>
 </head>
+
 <body>
-<form th:action="@{/login}" method="get">
-    <button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
-</form>
-
+<header class="border-bottom">
+    <div class="col-sm-12 border-bottom">
+        <div class="row d-flex align-items-center w-100" style="font-size:18px">
+            <a th:href="@{/}" class="col-sm-1" style="width: 10%">
+                <div style="height:5em; width: 100%;"> <img th:src="@{/images/ttcgroup.png}" class="w-100 h-100" alt="LOGO TTCGROUP"> </div>
+            </a>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;"> <a th:href="@{/nha-dat-ban}">Nhà đất cần bán</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;"> <a th:href="@{/nha-dat-cho-thue}" class="align-middle">Nhà đất cho thuê</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 40em;"> <a type="button" class="btn btn-outline-primary" th:href="@{/dang-tin-nha-dat}">Đăng Tin</a> </div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 40em"> <a type="button" class="btn btn-outline-dark" th:href="@{/login}">Đăng Nhập</a> </div>
+        </div>
+    </div>
+</header>
 <div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <form autocomplete="off" action="#" th:action="@{/registration}"
-                  method="post" class="form-horizontal"
-                  role="form">
+    <div class="col-sm-12 d-flex align-items-center justify-content-center" th:if="*{successMessage}">
+        <div class="alert border" role="alert" aria-live="assertive" aria-atomic="true" style="width: 40em; height: 10em">
+            <div class="toast-header" style="color: darkred; font-size: 20px">
+                <i class="glyphicon glyphicon-alert"></i>
+                <strong class="me-auto">Thông báo</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" style="color: green; font-size: 15px">
+                <i class="glyphicon glyphicon-ok">  Đăng ký thài khoản thành công!</i>
+            </div>
+        </div>
+    </div>
 
-                <h2>Registration Form</h2>
+    <div class="row justify-content-center" style="margin-top: 15em">
+        <div class="col-sm-4" style="height: 35em"> <img th:src="@{/images/ttcgroup.png}" class="w-100 h-100 w-100"> </div>
+        <div class="col-sm-6 border">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist"> <a class="nav-link" th:href="@{/login}" type="button" role="tab" aria-selected="true" style="font-size: 25px; color:#333333; font-weight: 500">Đăng nhập
+                </a> <a class="nav-link active" th:href="@{/dang-ky-tai-khoan}" type="button" role="tab" aria-selected="false" style="font-size: 25px; color: #0a53be; font-weight: 500">Đăng ký
+                </a> </div>
+            </nav>
+            <div class="tab-content col-sm-12" id="nav-tabContent">
+                <div class="tab-pane d-flex flex-column align-items-center justify-content-center col-sm-12" id="nav-login" role="tabpanel">
+                    <form id="resign-form" th:action="@{/dang-ky-tai-khoan}" method="POST" class="form-signin w-50 d-flex flex-column
+                                        align-items-center justify-content-center" style="margin: 3em;">
+                        <div class="form-group w-100">
+                            <div th:if="*{errorMessage}">
+                                <p style="color: red">* Tên tài khoản đã tồn tại!</p>
+                            </div>
+                            <p style="display: none; color: red" id="user_name_notice">* Không được để trống!</p>
+                            <p style="display: none; color: red" id="user_name_min">* Ít nhất 6 kí tự!</p>
+                            <div class="form-floating w-100">
+                                <input type="text" th:field="*{user.userName}" id="user_name" name="user_name" placeholder="Tên đăng nhập:" class="form-control" onchange="validate()"/>
+                                <label for="user_name">Tên đăng nhập</label>
+                            </div>
 
-                <span th:object="${user}">
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <label th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
-                               class="validation-message"></label>
-                        <input type="text" th:field="*{userName}" placeholder="User Name"
-                               class="form-control" name="username" id="username"/>
-                    </div>
+                        </div>
+                        <div class="form-group w-100">
+                            <p style="display: none; color: red" id="password_notice">* Không được để trống!</p>
+                            <p style="display: none; color: red" id="password_notice_min">* Ít nhất 6 kí tự!</p>
+                            <div class="form-floating w-100">
+                                <input type="password" th:field="*{user.password}" placeholder="Mật khẩu" id="password" name="password" class="form-control" onchange="validate()"/>
+                                <label for="password">Mật khẩu</label>
+                            </div>
+                        </div>
+                        <div class="form-group w-100">
+                            <p style="display: none; color: red" id="re_pass_notice">* Không được để trống!</p>
+                            <p style="display: none; color: red" id="re_pass">* Mật khẩu nhập lại không đúng!</p>
+                            <div class="form-floating w-100">
+                                <input id="re-password" type="text" placeholder="Nhập lại mật khẩu" name="re-password" class="form-control" onchange="validate()">
+                                <label for="re-password">Nhập lại mật khẩu</label>
+                            </div>
+                        </div>
+                        <div class="form-floating form-group w-100">
+                            <p style="display: none; color: red" id="name_notice">* Không được để trống!</p>
+                            <div class="form-floating w-100">
+                                <input type="text" th:field="*{inforUser.fullName}" id="name" placeholder="Họ tên:" class="form-control" onchange="validate()">
+                                <label for="name">Họ tên:</label>
+                            </div>
+
+                        </div>
+                        <div class="form-floating form-group w-100">
+                            <p style="display: none; color: red" id="dob_notice">* Không được để trống!</p>
+                            <div class="form-floating w-100">
+                                <input type="date" th:field="*{inforUser.dob}" id="dob" class="form-control" onchange="validate()">
+                                <label for="dob">Ngày sinh:</label>
+                            </div>
+
+                        </div>
+                        <div class="form-floating form-group w-100">
+                            <p style="display: none; color: red" id="phone_notice">* Vui lòng cung cấp số điện thoại gồm 10 chữ số!</p>
+                            <div class="form-floating w-100">
+                                <input type="text" th:field="*{inforUser.phone}" placeholder="Số điện thoại" id="phone" class="form-control" onchange="validate()">
+                                <label for="phone">Số điện thoại:</label>
+                            </div>
+                        </div>
+                        <div class="form-group w-100">
+                            <p style="display: none; color: red" id="email_notice">* Không được để trống!</p>
+                            <div class="form-floating w-100">
+                                <input type="email" id="email" placeholder="Email" th:field="*{inforUser.email}" class="form-control" onchange="validate()">
+                                <label for="email">Email:</label>
+                            </div>
+                        </div>
+                        <div class="form-group w-100">
+                            <p style="display: none; color: red" id="address_notice">* Không được để trống!</p>
+                            <div class="form-floating w-100">
+                                <input type="text" id="address" th:field="*{inforUser.address}" placeholder="Địa chỉ" class="form-control" onchange="validate()">
+                                <label for="address">Địa chỉ:</label>
+                            </div>
+
+                        </div>
+
+                    </form>
+                    <button class="btn btn-lg btn-primary btn-block" value="Login" onclick="submit()"> Đăng ký </button>
                 </div>
-
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-                               class="validation-message"></label>
-                        <input type="password" th:field="*{password}"
-                               placeholder="Password" class="form-control" name="password" id="password"/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="password"  placeholder="Password"
-                               class="form-control" name="repeat-password" id="repeat-password"/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="text" th:field="*{phone}" placeholder="phone"
-                               class="form-control" name="phone" id="phone"/> <label
-                            th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"
-                            class="validation-message"></label>
-                    </div>
-                </div>
-
-
-                </span>
-
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <button type="submit" class="btn btn-primary btn-block">Register User</button>
-                    </div>
-                </div>
-
-                <h2><span class="text-success" th:utext="${successMessage}"></span></h2>
-
-            </form>
+                <div class="tab-pane d-none" id="nav-resign" role="tabpanel" aria-labelledby="nav-profile-tab"> abc </div>
+            </div>
         </div>
     </div>
 </div>
 
 </body>
+
 </html>

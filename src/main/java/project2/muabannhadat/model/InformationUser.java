@@ -29,24 +29,24 @@ public class InformationUser {
     private String userName;
 
     @Column(name = "fullname")
-//    @NotEmpty(message = "*Vui lòng cung cấp tên của bạn!!!")
+    @NotEmpty(message = "*Vui lòng cung cấp tên của bạn!!!")
     private String fullName;
 
 
     @Column(name = "dob")
     private Date dob;
 
-//    @NotEmpty(message = "*Vui lòng cung cấp địa chỉ!!!")
+    @NotEmpty(message = "*Vui lòng cung cấp địa chỉ!!!")
     @Column(name = "address")
     private String address;
 
-//    @NotEmpty(message = "*Vui lòng cung cấp số điện thoại!!!")
-//    @Length(min =10, message = "*Hãy nhập đúng số điện thoại gồm 10 chữ số")
+    @NotEmpty(message = "*Vui lòng cung cấp số điện thoại!!!")
+    @Length(min =10, message = "*Hãy nhập đúng số điện thoại gồm 10 chữ số")
     @Column(name = "phone")
     private String phone;
 
-//    @Email(message = "*Nhập đúng định dạng email")
-//    @NotEmpty(message = "*Vui lòng cung cấp email!!!")
+    @Email(message = "*Nhập đúng định dạng email")
+    @NotEmpty(message = "*Vui lòng cung cấp email!!!")
     @Column(name = "email")
     private String email;
 

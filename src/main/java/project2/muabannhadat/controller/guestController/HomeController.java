@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
-import project2.muabannhadat.model.Article;
-import project2.muabannhadat.model.Image;
-import project2.muabannhadat.model.PostArticle;
+import project2.muabannhadat.configuration.AuthenticationSystem;
+import project2.muabannhadat.model.*;
 import project2.muabannhadat.repository.AvatarRepository;
 import project2.muabannhadat.service.*;
 
@@ -31,7 +30,7 @@ public class HomeController {
     private PostArticleService postArticleService;
 
     @Autowired
-    private AvatarRepository avatarRepository;
+    private AvatarService avatarService;
 
     @GetMapping("/")
     public ModelAndView getHome(){
@@ -50,6 +49,23 @@ public class HomeController {
             }
 
         }
+
+
+        /**
+         * Đoạn kiểm tra login
+         */
+        String username1 = AuthenticationSystem.getUsernameLogined();;
+        Avatar avatar1 = new Avatar();
+        if (!username1.equals("anonymousUser")){
+            System.out.println("logined : " + username1);
+            avatar1 = avatarService.findByUserName(username1);
+            modelAndView.addObject("avatar1", avatar1.getImage());
+        }else {
+            username1 = null;
+        }
+        modelAndView.addObject("username", username1);
+
+
         modelAndView.addObject("imgs",images);
         modelAndView.addObject("articles",articles);
         modelAndView.setViewName("guest/index");

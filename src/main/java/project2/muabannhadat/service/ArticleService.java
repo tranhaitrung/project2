@@ -154,4 +154,37 @@ public class ArticleService {
         Long count = articleRepository.count();
         return count;
     }
+
+    public Article updateArticle(Article article){
+        String title = article.getTitle();
+        String title_unsigned = VNCharacterUtils.removeAccent(title);
+        String city = article.getCity();
+        String city_u = VNCharacterUtils.removeAccent(city);
+        String district = article.getDistrict();
+        String district_u = VNCharacterUtils.removeAccent(district);
+        String ward = article.getWard();
+        String ward_u = VNCharacterUtils.removeAccent(ward);
+        String detail = article.getDetail();
+        String detail_u = VNCharacterUtils.removeAccent(detail);
+        Date date_up = DateUtils.createNow().getTime();
+        Float area = article.getArea();
+        Long price = article.getPrice();
+        String form = article.getForm();
+        String species = article.getSpecies();
+
+        article.setTitle_unsigned(title_unsigned);
+        article.setDetail_unsigned(detail_u);
+        article.setCity_unsigned(city_u);
+        article.setDistrict_unsigned(district_u);
+        article.setWard_unsigned(ward_u);
+        article.setDate_up(date_up);
+
+        //articleRepository.update(area,city,date_up,detail,district,form,price,species,title,ward,city_u,detail_u,district_u,title_unsigned,ward_u, article.getArticleId() );
+        articleRepository.save(article);
+        return article;
+    }
+
+    public List<Article> findByForm(String form){
+        return articleRepository.findArticlesByForm(form);
+    }
 }

@@ -27,10 +27,10 @@
 </head>
 
 <script>
-    function search(){
+    function search() {
         var action = document.getElementsByName("btnradio").value;
         var act = action === 'Bán' ? 'nha-dat-ban' : 'nhat-dat-cho-thue';
-        var form = document.getElementById("search-form").attributes("action",act);
+        var form = document.getElementById("search-form").attributes("action", act);
     }
 </script>
 
@@ -43,23 +43,40 @@
 
 <header>
     <div class="col-sm-12">
-        <div class="row d-flex align-items-center" style="font-size:18px">
-            <div class="col-sm-1" style="height:5em; width: 10%;">
-                <img th:src="@{images/ttcgroup.png}" class="w-100 h-100" alt="LOGO TTCGROUP">
-            </div>
+        <div class="row d-flex align-items-center w-100" style="font-size:18px">
+            <a th:href="@{/}" class="col-sm-1" style="width: 10%">
+                <div style="height:5em; width: 100%;">
+                    <img th:src="@{/images/ttcgroup.png}" class="w-100 h-100" alt="LOGO TTCGROUP">
+                </div>
+            </a>
             <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
-                <a href="">Nhà đất cần bán</a></div>
+                <a th:href="@{/nha-dat-ban}">Nhà đất cần bán</a></div>
             <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
-                <a href="" class="align-middle">Nhà đất cho thuê</a></div>
-            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right;">
-                <a type="button" class="btn btn-outline-dark" th:href="@{/login}">Đăng Nhập</a>
-            </div>
-            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right;">
+                <a th:href="@{/nha-dat-cho-thue}" class="align-middle">Nhà đất cho thuê</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 38em;">
                 <a type="button" class="btn btn-outline-primary" th:href="@{/dang-tin-nha-dat}">Đăng Tin</a>
             </div>
+            <div class="col-sm-1 d-flex align-items-center justify-content-center" style="height:5em; float: right; left: 36em; width: 9em;"
+                 th:if="*{username}">
+                <a class="btn btn-outline-secondary border-0 w-100 d-flex justify-content-center align-items-center" th:href="@{/tai-khoan/{username}(username=*{username})}">
+                    <img th:src="'data:image/jpeg;base64,'+ *{avatar1}" class="rounded-circle" style="width: 2.5em; height: 2.5em">
+                    <p th:text="*{username}" style="font-size: 15px; margin:3px"></p>
+                </a>
+                <div class="dropdown">
+                    <button class="btn border-0 dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><a th:href="@{/cap-nhat-thong-tin}" class="dropdown-item" type="button">Cập nhật thông tin</a></li>
+                        <li><a th:href="@{/doi-mat-khau}" class="dropdown-item" type="button">Đổi mật khẩu</a></li>
+                        <li><a th:href="@{/logout}" class="dropdown-item" type="button">Đăng xuất</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 36em"
+                 th:unless="*{username}">
+                <a type="button" class="btn btn-outline-dark" th:href="@{/login}">Đăng Nhập</a>
+            </div>
         </div>
-
-
     </div>
     <div class="col-sm-12">
         <div class="row border-bottom border-start-0">
@@ -178,19 +195,19 @@
                             <label for="select4">Diện tích</label>
                         </div>
                     </div>
-                    <div class="col-sm-1 d-flex justify-content-center align-items-center"
-                         style="height: 5em; width: 13%;">
-                        <div class="form-floating h-80 w-100">
-                            <button type="submit" class="btn btn-primary">TÌM KIẾM</button>
+                    <div class="col-sm-1 d-flex justify-content-center align-items-center h-100"
+                         style="width: 13%;">
+                        <div class="form-floating h-75 w-100" style="top: 1.3em">
+                            <button type="submit" class="btn btn-primary h-75 w-50">TÌM KIẾM</button>
                         </div>
                     </div>
 
                 </div>
             </form>
         </div>
-
     </div>
 </header>
+
 
 
 <div class="col-sm-12">
@@ -198,7 +215,8 @@
         <div class="row d-flex justify-content-center">
             <div class="col-sm-3" style=" margin-left: 2em; font-size: 15px; margin-top: 2em">
                 <div class="col-sm-12 border" style="height: auto;">
-                    <div class="col-sm-12 border-bottom d-flex justify-content-center align-items-center" style="height: 3em; color: #003e71">
+                    <div class="col-sm-12 border-bottom d-flex justify-content-center align-items-center"
+                         style="height: 3em; color: #003e71">
                         <h2>Thông tin tài khoản</h2>
                     </div>
                     <div class="col-sm-12 w-100 h-25 justify-content-center d-flex" style="margin-top: 1em">
@@ -216,7 +234,7 @@
                     <div class="col-sm-12 d-flex align-items-center justify-content-center" style="height: 3em">
                         Địa chỉ: <span th:text="*{inforUser.address}"></span>
                     </div>
-                    <div class="col-sm-12 align-items-center justify-content-center d-flex" >
+                    <div class="col-sm-12 align-items-center justify-content-center d-flex">
                         <a type="button" class="btn btn-success d-flex align-items-center justify-content-center"
                            th:href="'tel:' + *{inforUser.phone}" style="font-size: 20px; width: 10em; height: 2.5em">
                             <p th:text="*{inforUser.phone}"></p>
@@ -232,24 +250,50 @@
                 </div>
             </div>
             <div class="col-sm-8 border-start">
-                <div class="col-sm-12 d-flex justify-content-center align-items-center m-5" style="color: #003e71;" >
+                <div class="col-sm-12 d-flex justify-content-center align-items-center m-5" style="color: #003e71;">
                     <h1>Danh sách bài đăng tài khoản <span th:text="*{inforUser.userName}"></span></h1>
                 </div>
                 <div th:each="article : ${articles}">
                     <div class="col-sm-12 border" style="height: 20em;margin-bottom: 3em">
                         <div class="float-end" style="margin-right: -1.2em; margin-top: -1em;">
-                            <button class="border-0" style="background-color: #ffffff; font-size: 20px" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="border-0" style="background-color: #ffffff; font-size: 20px" type="button"
+                                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 ...
                             </button>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item active" th:href="@{/sua-bai-viet/{id}(id = *{article.articleId})}">Chỉnh sửa bài viết</a></li>
-                                <li><a class="dropdown-item" href="#">Xóa bài viết</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Xóa
+                                    bài viết</a></li>
                             </ul>
                         </div>
-                        <a th:href="@{/chi-tiet-bai-viet/{id}(id=*{article.getArticleId()})}" style="text-decoration-line: none">
+
+                        <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="font-size: 20px; color: red; font-weight: bold">
+                                        <h5 class="modal-title" id="exampleModalLabel"><i
+                                                class="glyphicon glyphicon-warning-sign"> Cảnh báo</i></h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Bạn có muốn xóa bài viết của mình?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
+                                                class="glyphicon glyphicon-remove"> Hủy</i></button>
+                                        <a th:href="@{/xoa-bai-viet/{id}(id = *{article.articleId})}" type="button"
+                                           class="btn btn-danger"><i class="glyphicon glyphicon-trash"> Xóa</i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a th:href="@{/chi-tiet-bai-viet/{id}(id=*{article.getArticleId()})}"
+                           style="text-decoration-line: none">
                             <div class="row h-100">
                                 <div class="col-sm-5 h-100">
-                                    <img th:src="'data:image/jpeg;base64,'+ *{imgs.get(articles.indexOf(article)).imageContent}" class="h-100 w-100">
+                                    <img th:src="'data:image/jpeg;base64,'+ *{imgs.get(articles.indexOf(article)).imageContent}"
+                                         class="h-100 w-100">
                                 </div>
                                 <div class="col-sm-7 h-100 p-3" style="font-size: 15px; color: rgba(51,51,51,0.9)">
                                     <h3 th:text="*{article.getTitle()}" class="col-sm-12" style="color: #003e71"></h3>
@@ -269,12 +313,7 @@
                                     </div>
 
                                     <div style="height:35%;overflow: hidden">
-                                        <span th:text="*{article.detail}"></span>
-                                        <span>Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,
-                                        Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,
-                                        Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,
-                                        Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,
-                                        Trong ngồi nha nhỏ, có 1 cái bàn và 6 chiếc ghế. Có 3 phòng ngủ, 2 wc, 1 nhà bespo,</span>
+                                        <span th:utext="*{article.detail}"></span>
                                     </div>
                                 </div>
                             </div>
@@ -287,7 +326,6 @@
                 </div>
 
             </div>
-
 
 
         </div>
