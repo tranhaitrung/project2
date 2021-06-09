@@ -52,4 +52,10 @@ public class UserService {
     public boolean deleteByUsername(String username){
         return userRepository.deleteUserByUserName(username);
     }
+
+    public void setActice(String username, Boolean active){
+        User user = userRepository.findByUserName(username);
+        user.setActive(active);
+        userRepository.save(user);
+    }
 }

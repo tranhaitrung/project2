@@ -254,6 +254,7 @@
                     <h1>Danh sách bài đăng tài khoản <span th:text="*{inforUser.userName}"></span></h1>
                 </div>
                 <div th:each="article : ${articles}">
+                    <div th:if="*{article.getDeleted()}"><span style="color: red">Bài viết của bạn đã bị ẩn bởi quản trị viên</span></div>
                     <div class="col-sm-12 border" style="height: 20em;margin-bottom: 3em">
                         <div class="float-end" style="margin-right: -1.2em; margin-top: -1em;">
                             <button class="border-0" style="background-color: #ffffff; font-size: 20px" type="button"

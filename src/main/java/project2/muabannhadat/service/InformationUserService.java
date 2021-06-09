@@ -47,7 +47,7 @@ public class InformationUserService {
         return informationUserRepository.findByUserNameIsLikeIgnoreCase(username);
     }
 
-    public List<InformationUser> findByPhone(int phone){
+    public List<InformationUser> findByPhone(String phone){
         return informationUserRepository.findByPhone(phone);
     }
 
@@ -59,5 +59,20 @@ public class InformationUserService {
         return informationUserRepository.findByEmailIsLikeIgnoreCase(email);
     }
 
+    public List<InformationUser> findInforDeleted(){
+        return informationUserRepository.findByDeleted(1);
+    }
+
+    public void setDeleted(String username){
+        InformationUser informationUser = informationUserRepository.findInformationUserByUserName(username);
+        informationUser.setDeleted(1);
+        informationUserRepository.save(informationUser);
+    }
+
+    public void unsetDeleted(String username){
+        InformationUser informationUser = informationUserRepository.findInformationUserByUserName(username);
+        informationUser.setDeleted(0);
+        informationUserRepository.save(informationUser);
+    }
 
 }

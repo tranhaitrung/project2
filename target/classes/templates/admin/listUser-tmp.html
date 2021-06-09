@@ -53,7 +53,10 @@
         <td th:text="*{user.phone}"></td>
         <td th:text="*{user.email}"></td>
         <td> <a th:href="@{/quan-ly/tai-khoan/{username}(username=*{user.getUserName()})}"> Xem </a></td>
-        <td><input type="checkbox"></td>
+        <td>
+            <input type="checkbox" th:value="*{user.userName}" th:if="*{user.deleted}" name="deleteAccount" checked>
+            <input type="checkbox" th:value="*{user.userName}" th:unless="*{user.deleted}" name="deleteAccount">
+        </td>
     </tr>
     </tbody>
 </table>

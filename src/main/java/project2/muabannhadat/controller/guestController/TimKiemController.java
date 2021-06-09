@@ -47,6 +47,8 @@ public class TimKiemController {
 
         List<Article> articles = articleService.findArticle(hinhThuc, word, loai, khuvuc, gia, dienTich);
 
+        articles.removeIf(article -> article.getDeleted() == 1);
+
         List<Image> images = new ArrayList<>();
         for (Article article : articles){
             List<PostArticle> postArticles = postArticleService.findByArticleId(article.getArticleId());

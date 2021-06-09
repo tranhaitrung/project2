@@ -10,6 +10,7 @@ import project2.muabannhadat.model.Article;
 import project2.muabannhadat.repository.ArticleRepository;
 
 import java.math.BigInteger;
+import java.sql.Struct;
 import java.util.*;
 
 @Service
@@ -19,6 +20,7 @@ public class ArticleService {
 
     public Article addArticle(Article article){
         article.setDate_up(DateUtils.createNow().getTime());
+        article.setDeleted(0);
         return articleRepository.save(article);
     }
 
@@ -40,80 +42,106 @@ public class ArticleService {
 
         float dienTich1 = 0;
         float dienTich2 = 500000000;
-        if (gia.equals("1")){
-            gia1 = 1000000L;
-            gia2 = 3000000L;
-        }else if (gia.equals("2")){
-            gia1 = 3000000L;
-            gia2 = 5000000L;
-        }else if (gia.equals("3")){
-            gia1 = 5000000L;
-            gia2 = 10000000L;
-        }else if (gia.equals("4")){
-            gia1 = 10000000L;
-            gia2 = 20000000L;
-        }else if (gia.equals("5")){
-            gia1 = 20000000L;
-            gia2 = 50000000L;
-        }else if (gia.equals("6")){
-            gia1 = 50000000L;
-            gia2 = 100000000L;
-        }else if (gia.equals("7")){
-            gia1 = 100000000L;
-            gia2 = 500000000L;
-        }else if (gia.equals("8")){
-            gia1 = 500000000L;
-            gia2 = 1000000000L;
-        }else if (gia.equals("9")){
-            gia1 = 1000000000L;
-            gia2 = 2000000000L;
-        }else if (gia.equals("10")){
-            gia1 = 2000000000L;
-            gia2 = 5000000000L;
-        }else if (gia.equals("11")){
-            gia1 = 5000000000L;
-            gia2 = 10000000000L;
-        }else if (gia.equals("12")){
-            gia1 = 10000000000L;
-            gia2 = 20000000000L;
-        }else if (gia.equals("13")){
-            gia1 = 20000000000L;
-            gia2 = 30000000000L;
-        }else if (gia.equals("14")){
-            gia1 = 30000000000L;
-            gia2 = 500000000000000L;
+        switch (gia) {
+            case "1":
+                gia1 = 1000000L;
+                gia2 = 3000000L;
+                break;
+            case "2":
+                gia1 = 3000000L;
+                gia2 = 5000000L;
+                break;
+            case "3":
+                gia1 = 5000000L;
+                gia2 = 10000000L;
+                break;
+            case "4":
+                gia1 = 10000000L;
+                gia2 = 20000000L;
+                break;
+            case "5":
+                gia1 = 20000000L;
+                gia2 = 50000000L;
+                break;
+            case "6":
+                gia1 = 50000000L;
+                gia2 = 100000000L;
+                break;
+            case "7":
+                gia1 = 100000000L;
+                gia2 = 500000000L;
+                break;
+            case "8":
+                gia1 = 500000000L;
+                gia2 = 1000000000L;
+                break;
+            case "9":
+                gia1 = 1000000000L;
+                gia2 = 2000000000L;
+                break;
+            case "10":
+                gia1 = 2000000000L;
+                gia2 = 5000000000L;
+                break;
+            case "11":
+                gia1 = 5000000000L;
+                gia2 = 10000000000L;
+                break;
+            case "12":
+                gia1 = 10000000000L;
+                gia2 = 20000000000L;
+                break;
+            case "13":
+                gia1 = 20000000000L;
+                gia2 = 30000000000L;
+                break;
+            case "14":
+                gia1 = 30000000000L;
+                gia2 = 500000000000000L;
+                break;
         }
 
-        if (dienTich.equals("20")){
-            dienTich1 = 0;
-            dienTich2 = 20;
-        }else if (dienTich.equals("30")){
-            dienTich1 = 20;
-            dienTich2 = 30;
-        }else if (dienTich.equals("50")){
-            dienTich1 = 30;
-            dienTich2 = 50;
-        }else if (dienTich.equals("80")){
-            dienTich1 = 50;
-            dienTich2 = 80;
-        }else if (dienTich.equals("100")){
-            dienTich1 = 80;
-            dienTich2 = 100;
-        }else if (dienTich.equals("150")){
-            dienTich1 = 100;
-            dienTich2 = 150;
-        }else if (dienTich.equals("200")){
-            dienTich1 = 150;
-            dienTich2 = 200;
-        }else if (dienTich.equals("300")){
-            dienTich1 = 200;
-            dienTich2 = 300;
-        }else if (dienTich.equals("500")){
-            dienTich1 = 300;
-            dienTich2 = 500;
-        }else if (dienTich.equals("501")){
-            dienTich1 = 500;
-            dienTich2 = 50000000;
+        switch (dienTich) {
+            case "20":
+                dienTich1 = 0;
+                dienTich2 = 20;
+                break;
+            case "30":
+                dienTich1 = 20;
+                dienTich2 = 30;
+                break;
+            case "50":
+                dienTich1 = 30;
+                dienTich2 = 50;
+                break;
+            case "80":
+                dienTich1 = 50;
+                dienTich2 = 80;
+                break;
+            case "100":
+                dienTich1 = 80;
+                dienTich2 = 100;
+                break;
+            case "150":
+                dienTich1 = 100;
+                dienTich2 = 150;
+                break;
+            case "200":
+                dienTich1 = 150;
+                dienTich2 = 200;
+                break;
+            case "300":
+                dienTich1 = 200;
+                dienTich2 = 300;
+                break;
+            case "500":
+                dienTich1 = 300;
+                dienTich2 = 500;
+                break;
+            case "501":
+                dienTich1 = 500;
+                dienTich2 = 50000000;
+                break;
         }
 
         word = VNCharacterUtils.removeAccent(word);
@@ -178,6 +206,7 @@ public class ArticleService {
         article.setDistrict_unsigned(district_u);
         article.setWard_unsigned(ward_u);
         article.setDate_up(date_up);
+        article.setDeleted(0);
 
         //articleRepository.update(area,city,date_up,detail,district,form,price,species,title,ward,city_u,detail_u,district_u,title_unsigned,ward_u, article.getArticleId() );
         articleRepository.save(article);
@@ -186,5 +215,131 @@ public class ArticleService {
 
     public List<Article> findByForm(String form){
         return articleRepository.findArticlesByForm(form);
+    }
+
+    public List<Article> findByPrice(String gia){
+        Long gia1 = 0L;
+        Long gia2 = 999999999999999999L;
+
+        if (gia.equals("1")){
+            gia1 = 1000000L;
+            gia2 = 3000000L;
+        }else if (gia.equals("2")){
+            gia1 = 3000000L;
+            gia2 = 5000000L;
+        }else if (gia.equals("3")){
+            gia1 = 5000000L;
+            gia2 = 10000000L;
+        }else if (gia.equals("4")){
+            gia1 = 10000000L;
+            gia2 = 20000000L;
+        }else if (gia.equals("5")){
+            gia1 = 20000000L;
+            gia2 = 50000000L;
+        }else if (gia.equals("6")){
+            gia1 = 50000000L;
+            gia2 = 100000000L;
+        }else if (gia.equals("7")){
+            gia1 = 100000000L;
+            gia2 = 500000000L;
+        }else if (gia.equals("8")){
+            gia1 = 500000000L;
+            gia2 = 1000000000L;
+        }else if (gia.equals("9")){
+            gia1 = 1000000000L;
+            gia2 = 2000000000L;
+        }else if (gia.equals("10")){
+            gia1 = 2000000000L;
+            gia2 = 5000000000L;
+        }else if (gia.equals("11")){
+            gia1 = 5000000000L;
+            gia2 = 10000000000L;
+        }else if (gia.equals("12")){
+            gia1 = 10000000000L;
+            gia2 = 20000000000L;
+        }else if (gia.equals("13")){
+            gia1 = 20000000000L;
+            gia2 = 30000000000L;
+        }else if (gia.equals("14")){
+            gia1 = 30000000000L;
+            gia2 = 500000000000000L;
+        }
+
+        return articleRepository.findArticlesByPriceBetween(gia1, gia2);
+    }
+
+    public List<Article> findByArea(String dienTich){
+        float dienTich1 = 0;
+        float dienTich2 = 500000000;
+        switch (dienTich) {
+            case "20":
+                dienTich1 = 0;
+                dienTich2 = 20;
+                break;
+            case "30":
+                dienTich1 = 20;
+                dienTich2 = 30;
+                break;
+            case "50":
+                dienTich1 = 30;
+                dienTich2 = 50;
+                break;
+            case "80":
+                dienTich1 = 50;
+                dienTich2 = 80;
+                break;
+            case "100":
+                dienTich1 = 80;
+                dienTich2 = 100;
+                break;
+            case "150":
+                dienTich1 = 100;
+                dienTich2 = 150;
+                break;
+            case "200":
+                dienTich1 = 150;
+                dienTich2 = 200;
+                break;
+            case "300":
+                dienTich1 = 200;
+                dienTich2 = 300;
+                break;
+            case "500":
+                dienTich1 = 300;
+                dienTich2 = 500;
+                break;
+            case "501":
+                dienTich1 = 500;
+                dienTich2 = 50000000;
+                break;
+        }
+
+        return articleRepository.findArticlesByAreaBetween(dienTich1, dienTich2);
+    }
+
+    public List<Article> findByCity(String city){
+        city = VNCharacterUtils.removeAccent(city);
+        return articleRepository.findArticlesByCityIgnoreCase(city);
+    }
+
+    public List<Article> findByTitle(String title){
+        title = VNCharacterUtils.removeAccent(title);
+        return articleRepository.findByTitleLIke(title);
+    }
+
+    public List<Article> findArticleDeleted(){
+        return articleRepository.findArticlesByDeleted(1);
+    }
+
+    public void setDeleted(Long id){
+        Article article = findArticleById(id);
+        article.setDeleted(1);
+        articleRepository.save(article);
+    }
+
+    public void setUndeleted(Long id){
+        Article article = findArticleById(id);
+        article.setDeleted(0);
+        articleRepository.save(article);
     }
 }

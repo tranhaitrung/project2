@@ -54,34 +54,11 @@ public class ThongTinTaiKhoanController {
         List<Article> articles = new ArrayList<>();
         List<Image> images = new ArrayList<>();
 
-        if (!listArticleId.isEmpty()){
-            int size = listArticleId.size();
-            for (int i = 0; i < size; i++){
-                article = articleService.findArticleById(listArticleId.get(i));
-                articles.add(article);
-                List<PostArticle> postArticle = postArticleService.findByArticleId(article.getArticleId());
-                if (!postArticle.isEmpty()){
-                    Image image = imageService.findImageByImageId(postArticle.get(0).getImageId());
-                    images.add(image);
-                    System.out.println(i + "/" + size);
-                }
-            }
-            modelAndView.addObject("articles", articles);
-            modelAndView.addObject("imgs", images);
-            modelAndView.addObject("inforUser", user);
-            modelAndView.addObject("avatar",avatar);
-        }else {
-            modelAndView.addObject("inforUser", user);
-            modelAndView.addObject("avatar",avatar);
-        }
-
-
         /**
          * Đoạn kiểm tra login
          */
         String username1 = AuthenticationSystem.getUsernameLogined();;
         Avatar avatar1 = new Avatar();
-        avatar1.setImage("abc");
         if (!username1.equals("anonymousUser")){
             System.out.println("logined : " + username1);
             avatar1 = avatarService.findByUserName(username1);
@@ -93,8 +70,50 @@ public class ThongTinTaiKhoanController {
 
 
         if (AuthenticationSystem.isLogged() && username.equals(AuthenticationSystem.getUsernameLogined())) {
+
+            if (!listArticleId.isEmpty()){
+                int size = listArticleId.size();
+                for (int i = 0; i < size; i++){
+                    article = articleService.findArticleById(listArticleId.get(i));
+                    articles.add(article);
+                    List<PostArticle> postArticle = postArticleService.findByArticleId(article.getArticleId());
+                    if (!postArticle.isEmpty()){
+                        Image image = imageService.findImageByImageId(postArticle.get(0).getImageId());
+                        images.add(image);
+                        System.out.println(i + "/" + size);
+                    }
+                }
+                modelAndView.addObject("articles", articles);
+                modelAndView.addObject("imgs", images);
+                modelAndView.addObject("inforUser", user);
+                modelAndView.addObject("avatar",avatar);
+            }else {
+                modelAndView.addObject("inforUser", user);
+                modelAndView.addObject("avatar",avatar);
+            }
             modelAndView.setViewName("user/thong-tin-tai-khoan");
         }else {
+            if (!listArticleId.isEmpty()){
+                int size = listArticleId.size();
+                for (int i = 0; i < size; i++){
+                    article = articleService.findArticleById(listArticleId.get(i));
+                    if (article.getDeleted() == 1) continue;
+                    articles.add(article);
+                    List<PostArticle> postArticle = postArticleService.findByArticleId(article.getArticleId());
+                    if (!postArticle.isEmpty()){
+                        Image image = imageService.findImageByImageId(postArticle.get(0).getImageId());
+                        images.add(image);
+                        System.out.println(i + "/" + size);
+                    }
+                }
+                modelAndView.addObject("articles", articles);
+                modelAndView.addObject("imgs", images);
+                modelAndView.addObject("inforUser", user);
+                modelAndView.addObject("avatar",avatar);
+            }else {
+                modelAndView.addObject("inforUser", user);
+                modelAndView.addObject("avatar",avatar);
+            }
             modelAndView.setViewName("guest/thong-tin-tai-khoan");
         }
 

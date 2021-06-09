@@ -223,7 +223,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <div class="toast-body" style="color: green; font-size: 15px">
-                    <i class="glyphicon glyphicon-ok">  Cập nhật thông tin thành công!</i>
+                    <i class="glyphicon glyphicon-ok">  Cập nhật bài viết thành công!</i>
                 </div>
             </div>
         </div>
@@ -472,8 +472,8 @@
                 <div class="col-sm-8" style="font-size: 13px; margin-top: 2.5em">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">User</a></li>
+                            <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                            <li class="breadcrumb-item"><a th:href="@{/tai-khoan/{username}(username=*{inforUser.userName})}"><span th:text="*{inforUser.userName}"></span></a></li>
                             <li class="breadcrumb-item active" aria-current="page" th:text="*{article.title}"></li>
                         </ol>
                     </nav>

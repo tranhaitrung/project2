@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -52,6 +53,8 @@ public class Article {
 
     private Long price;
 
+    @Value("${someNumber:0}")
+    private Integer deleted;
 
     private Date date_up;
 

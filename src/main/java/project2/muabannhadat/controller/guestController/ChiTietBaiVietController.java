@@ -71,6 +71,9 @@ public class ChiTietBaiVietController {
         modelAndView.addObject("username", username1);
 
         if (AuthenticationSystem.isLogged() && username.equals(AuthenticationSystem.getUsernameLogined()) ){
+            if (article.getDeleted() == 1){
+                throw new IndexOutOfBoundsException("Bài viết không tòn tại");
+            }
             modelAndView.setViewName("user/chi-tiet-bai-viet");
         }else {
             modelAndView.setViewName("guest/chi-tiet-bai-viet");

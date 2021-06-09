@@ -36,6 +36,7 @@ public class NhaDatBanController {
     public ModelAndView nhaDatBan(){
 
         List<Article> articles = articleService.findByForm("Bán");
+        articles.removeIf(article -> article.getDeleted() == 1);
         List<Image> images = new ArrayList<>();
         for (Article article : articles){
             List<PostArticle> postArticles = postArticleService.findByArticleId(article.getArticleId());

@@ -6,17 +6,11 @@
     <title>Home</title>
 
 
-    <script th:src="@{/javascript/jquery-3.6.0.min.js}" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link src="../css/style.css" rel="stylesheet" type="text/css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script th:src="@{/javascript/ajax.js}"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -40,7 +34,9 @@
 
 </head>
 <body>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
 <header>
     <div class="col-sm-12">
         <div class="row d-flex align-items-center w-100" style="font-size:18px">
@@ -101,6 +97,7 @@
                         <option value="3">Họ tên</option>
                         <option value="4">Số điện thoại</option>
                         <option value="5">Email</option>
+                        <option value="6">Đã xóa</option>
                     </select>
                     <label for="select1">Tìm kiếm theo</label>
                 </div>
@@ -108,8 +105,8 @@
                     <button type="button" class="btn btn-outline-info h-100" onclick="loadUser()">TÌM KIẾM</button>
                 </div>
                 <div class="col-sm-1 d-flex float-end h-100" style="left: 30%">
-                    <a class="btn btn-outline-danger form-control form-group float-end d-flex align-items-center justify-content-center h-100">
-                        <i class="glyphicon glyphicon-trash"> Xóa</i></a>
+                    <button class="btn btn-outline-danger form-control form-group float-end d-flex align-items-center justify-content-center h-100" style="width: 15em;" onclick="deleteAccountAdmin()">
+                        <i class="glyphicon glyphicon-trash"> Xóa Tài Khoản</i></button>
                 </div>
             </div>
         </div>
@@ -156,7 +153,11 @@
                             <td th:text="*{user.phone}"></td>
                             <td th:text="*{user.email}"></td>
                             <td> <a th:href="@{/quan-ly/tai-khoan/{username}(username=*{user.getUserName()})}"> Xem </a></td>
-                            <td><input type="checkbox"></td>
+                            <td>
+                                <input type="checkbox" th:value="*{user.userName}" th:if="*{user.deleted}" name="deleteAccount" checked>
+                                <input type="checkbox" th:value="*{user.userName}" th:unless="*{user.deleted}" name="deleteAccount">
+
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -168,6 +169,8 @@
 
 
 
+<script th:src="@{/javascript/jquery-3.6.0.min.js}" type="text/javascript"></script>
+<script th:src="@{/javascript/ajax.js}"></script>
 
 </body>
 </html>

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -53,4 +54,6 @@ public class InformationUser {
     @Column(name = "avatar")
     private String avatar;
 
+    @Value("${someNumber:0}")
+    private Integer deleted;
 }

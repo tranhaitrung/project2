@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link src="../css/style.css" rel="stylesheet" type="text/css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        a {
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: none;
+            color: darkblue;
+        }
+    </style>
+    <script></script>
+</head>
+<body>
+<table class="table table-hover" style="font-size: 15px">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col" style="width: 20%">Tiêu đề</th>
+        <th scope="col">Thành phố</th>
+        <th scope="col">Diện tích</th>
+        <th scope="col">Giá tiền</th>
+        <th scope="col">Ngày đăng</th>
+        <th scope="col"></th>
+        <th scope="col">SELECT</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="a : ${articles}" style="height: 5em; overflow: hidden">
+        <a th:href="@{/detail/{id}(id=*{a.articleId})}">
+            <td scope="row"><p th:text="*{a.articleId}"></p></td>
+            <td class="overflow-hidden"><p th:text="*{a.title}"></p></td>
+            <td> <p th:text="*{a.city}"></p> </td>
+            <td> <p th:text="*{a.area}"></p> </td>
+            <td> <p th:text="*{a.price}"></p> </td>
+            <td> <p th:text="*{a.date_up}"></p> </td>
+            <td> <a th:href="@{chi-tiet-bai-viet/{id}(id=*{a.articleId})}">Xem chi tiết</a></td>
+            <td>
+                <input type="checkbox" name="xoa" th:value="*{a.articleId}" th:if="*{a.deleted}" checked>
+                <input type="checkbox" name="xoa" th:value="*{a.articleId}" th:unless="*{a.deleted}">
+            </td>
+        </a>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

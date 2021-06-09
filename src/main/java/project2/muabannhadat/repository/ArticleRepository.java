@@ -17,18 +17,27 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     //Tìm bởi tên quận
     List<Article> findArticlesByDistrictIgnoreCase(String district);
+
     //Tìm bởi tên TP
-    List<Article> findArticlesByCityIgnoreCase(String city);
+    @Query("SELECT a from Article  a where a.city_unsigned like concat('%',:city,'%')")
+    List<Article> findArticlesByCityIgnoreCase(@Param("city") String city);
+
     //Tìm bởi tên đường
     List<Article> findArticlesByWardIgnoreCase(String ward);
     //Tìm bởi giá, trong khoảng giá
-    List<Article> findArticlesByPriceBetween(int a, int b);
+    List<Article> findArticlesByPriceBetween(Long a, Long b);
     //Tìm theo diện tích
     List<Article> findArticlesByAreaBetween(float a, float b);
     //Tìm theo hình thức form
     List<Article> findArticlesByForm(String form);
     //Tìm theo loại species
     List<Article> findArticlesBySpecies(String species);
+
+    @Query("SELECT a from Article  a where a.title_unsigned like concat('%',:title,'%')")
+    List<Article> findByTitleLIke(@Param("title") String title);
+
+    List<Article> findArticlesByDeleted(int dlt);
+
 
     @Query("SELECT a FROM Article a WHERE a.form LIKE  concat('%',:hinhthuc,'%') and a.species LIKE CONCAT('%',:loai,'%')" +
             " AND a.city_unsigned LIKE CONCAT('%',:city,'%')" +

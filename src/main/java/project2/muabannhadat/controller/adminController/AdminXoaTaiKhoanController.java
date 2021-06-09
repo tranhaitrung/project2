@@ -9,8 +9,10 @@ import org.springframework.web.servlet.ModelAndView;
 import project2.muabannhadat.model.*;
 import project2.muabannhadat.service.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RequestMapping(value = "/quan-ly")
@@ -69,5 +71,26 @@ public class AdminXoaTaiKhoanController {
         informationUserService.deleteInformationUserByUsername(username);
         userService.deleteByUsername(username);
         return true;
+    }
+
+    @PostMapping("/deleteAccount")
+    public ModelAndView deleteAccount(HttpServletRequest request){
+        String str = request.getParameter("data");
+        List<String> arr = Arrays.asList(str.split("-"));
+        System.out.println(str);
+        List<InformationUser> informationUsers = informationUserService.findInforDeleted();
+        for (InformationUser informationUser: informationUsers){
+            informationUserService.unsetDeleted(informationUser.getUserName());
+            userService.setActice(informationUser.getUserName(), true);
+        }
+        for (String s : arr){
+            informationUserService.setDeleted(s);
+            userService.setActice(s, false);
+        }
+        ModelAndView modelAndView = new ModelAndView();
+        informationUsers = informationUserService.getAll();
+        modelAndView.addObject("informationUsers",informationUsers);
+        modelAndView.setViewName("admin/listUser-tmp");
+        return modelAndView;
     }
 }

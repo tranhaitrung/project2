@@ -2,15 +2,16 @@ package project2.muabannhadat.controller.adminController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import project2.muabannhadat.configuration.AuthenticationSystem;
 import project2.muabannhadat.model.*;
 import project2.muabannhadat.service.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @RequestMapping(value = "/quan-ly")
@@ -69,6 +70,28 @@ public class AdminXoaBaiController {
 
         modelAndView.addObject("deleteSuccessMessage","Delete Successfull!");
         modelAndView.setViewName("admin/danh-sach-bai-viet");
+        return modelAndView;
+    }
+
+    @PostMapping("/xoa-bai")
+    public ModelAndView xoaBai(HttpServletRequest request){
+        ModelAndView modelAndView = new ModelAndView();
+        String data = request.getParameter("data");
+        System.out.println("xoa bai");
+        List<Article> articleList = articleService.findArticleDeleted();
+        for (Article a: articleList){
+            articleService.setUndeleted(a.getArticleId());
+        }
+
+        List<String> arr = Arrays.asList(data.split("-"));
+        for (String s : arr){
+            Long id = Long.parseLong(s);
+            articleService.setDeleted(id);
+        }
+        System.out.println(data);
+        List<Article> articles = articleService.getAll();
+        modelAndView.addObject("articles",articles);
+        modelAndView.setViewName("admin/ds-bai-tmp");
         return modelAndView;
     }
 }
