@@ -342,4 +342,24 @@ public class ArticleService {
         article.setDeleted(0);
         articleRepository.save(article);
     }
+
+    public List<Article> getArticleByAreaBetween(float dt1, float dt2){
+        List<Article> articles = new ArrayList<>();
+        articles = articleRepository.findArticlesByAreaBetween(dt1, dt2);
+        articles.removeIf(article -> article.getDeleted() == 1);
+        if (!articles.isEmpty()){
+            return articles;
+        }
+        return new ArrayList<>();
+    }
+
+    public List<Article> getAricleByPriceBetween(Long price1, Long price2){
+        List<Article> articles = new ArrayList<>();
+        articles =  articleRepository.findArticlesByPriceBetween(price1, price2);
+        articles.removeIf(article -> article.getDeleted() == 1);
+        if (!articles.isEmpty()){
+            return articles;
+        }
+        return new ArrayList<>();
+    }
 }

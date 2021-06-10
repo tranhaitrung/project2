@@ -51,7 +51,6 @@ public class HomeController {
 
         }
 
-
         /**
          * Đoạn kiểm tra login
          */
