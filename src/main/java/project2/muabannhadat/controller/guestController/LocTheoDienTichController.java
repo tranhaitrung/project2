@@ -9,10 +9,7 @@ import project2.muabannhadat.model.Article;
 import project2.muabannhadat.model.Avatar;
 import project2.muabannhadat.model.Image;
 import project2.muabannhadat.model.PostArticle;
-import project2.muabannhadat.service.ArticleService;
-import project2.muabannhadat.service.AvatarService;
-import project2.muabannhadat.service.ImageService;
-import project2.muabannhadat.service.PostArticleService;
+import project2.muabannhadat.service.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +27,9 @@ public class LocTheoDienTichController {
 
     @Autowired
     AvatarService avatarService;
+
+    @Autowired
+    UserService userService;
 
     ModelAndView modelAndView = new ModelAndView();
 
@@ -61,6 +61,9 @@ public class LocTheoDienTichController {
         if (!username1.equals("anonymousUser")){
             System.out.println("logined : " + username1);
             avatar1 = avatarService.findByUserName(username1);
+            System.out.println("get role");
+            int roleid = userService.getRoleUser(username1);
+            modelAndView.addObject("role", roleid);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;
@@ -102,6 +105,9 @@ public class LocTheoDienTichController {
         if (!username1.equals("anonymousUser")){
             System.out.println("logined : " + username1);
             avatar1 = avatarService.findByUserName(username1);
+            System.out.println("get role");
+            int roleid = userService.getRoleUser(username1);
+            modelAndView.addObject("role", roleid);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;
@@ -143,6 +149,9 @@ public class LocTheoDienTichController {
         if (!username1.equals("anonymousUser")){
             System.out.println("logined : " + username1);
             avatar1 = avatarService.findByUserName(username1);
+            System.out.println("get role");
+            int roleid = userService.getRoleUser(username1);
+            modelAndView.addObject("role", roleid);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;
@@ -184,6 +193,9 @@ public class LocTheoDienTichController {
         if (!username1.equals("anonymousUser")){
             System.out.println("logined : " + username1);
             avatar1 = avatarService.findByUserName(username1);
+            System.out.println("get role");
+            int roleid = userService.getRoleUser(username1);
+            modelAndView.addObject("role", roleid);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;
@@ -225,6 +237,9 @@ public class LocTheoDienTichController {
         if (!username1.equals("anonymousUser")){
             System.out.println("logined : " + username1);
             avatar1 = avatarService.findByUserName(username1);
+            System.out.println("get role");
+            int roleid = userService.getRoleUser(username1);
+            modelAndView.addObject("role", roleid);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;
@@ -266,6 +281,9 @@ public class LocTheoDienTichController {
         if (!username1.equals("anonymousUser")){
             System.out.println("logined : " + username1);
             avatar1 = avatarService.findByUserName(username1);
+            System.out.println("get role");
+            int roleid = userService.getRoleUser(username1);
+            modelAndView.addObject("role", roleid);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;
@@ -307,6 +325,9 @@ public class LocTheoDienTichController {
         if (!username1.equals("anonymousUser")){
             System.out.println("logined : " + username1);
             avatar1 = avatarService.findByUserName(username1);
+            System.out.println("get role");
+            int roleid = userService.getRoleUser(username1);
+            modelAndView.addObject("role", roleid);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;
@@ -348,6 +369,9 @@ public class LocTheoDienTichController {
         if (!username1.equals("anonymousUser")){
             System.out.println("logined : " + username1);
             avatar1 = avatarService.findByUserName(username1);
+            System.out.println("get role");
+            int roleid = userService.getRoleUser(username1);
+            modelAndView.addObject("role", roleid);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;
@@ -389,6 +413,9 @@ public class LocTheoDienTichController {
         if (!username1.equals("anonymousUser")){
             System.out.println("logined : " + username1);
             avatar1 = avatarService.findByUserName(username1);
+            System.out.println("get role");
+            int roleid = userService.getRoleUser(username1);
+            modelAndView.addObject("role", roleid);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;
@@ -430,6 +457,9 @@ public class LocTheoDienTichController {
         if (!username1.equals("anonymousUser")){
             System.out.println("logined : " + username1);
             avatar1 = avatarService.findByUserName(username1);
+            System.out.println("get role");
+            int roleid = userService.getRoleUser(username1);
+            modelAndView.addObject("role", roleid);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;

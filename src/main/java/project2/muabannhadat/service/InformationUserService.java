@@ -23,11 +23,7 @@ public class InformationUserService {
     public InformationUser saveInforUser(InformationUser informationUser){
         return informationUserRepository.save(informationUser);
     }
-
-    public InformationUser setAvatar(InformationUser informationUser, String avatar){
-        informationUser.setAvatar(avatar);
-        return informationUserRepository.save(informationUser);
-    }
+    
 
     public void deleteInformationUserByUsername(String username){
         InformationUser informationUser = informationUserRepository.findInformationUserByUserName(username);

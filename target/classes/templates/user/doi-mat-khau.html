@@ -44,10 +44,14 @@
                 <a th:href="@{/nha-dat-ban}">Nhà đất cần bán</a></div>
             <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
                 <a th:href="@{/nha-dat-cho-thue}" class="align-middle">Nhà đất cho thuê</a></div>
-            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 38em;">
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;" th:if="*{role}">
+                <a th:href="@{/quan-ly}" class="align-middle">Trang quản lý</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;" th:unless="*{role}">
+            </div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 26em;">
                 <a type="button" class="btn btn-outline-primary" th:href="@{/dang-tin-nha-dat}">Đăng Tin</a>
             </div>
-            <div class="col-sm-1 d-flex align-items-center justify-content-center" style="height:5em; float: right; left: 36em; width: 9em;"
+            <div class="col-sm-1 d-flex align-items-center justify-content-center" style="height:5em; float: right; left: 25em; width: 9em;"
                  th:if="*{username}">
                 <a class="btn btn-outline-secondary border-0 w-100 d-flex justify-content-center align-items-center" th:href="@{/tai-khoan/{username}(username=*{username})}">
                     <img th:src="'data:image/jpeg;base64,'+ *{avatar1}" class="rounded-circle" style="width: 2.5em; height: 2.5em">
@@ -63,7 +67,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 36em"
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 25em"
                  th:unless="*{username}">
                 <a type="button" class="btn btn-outline-dark" th:href="@{/login}">Đăng Nhập</a>
             </div>
@@ -91,58 +95,56 @@
             <img th:src="@{/images/ttcgroup.png}" class="w-100 h-100 w-100">
         </div>
         <div class="col-sm-4">
-                    <form th:action="@{/doi-mat-khau}" method="POST" id="pass-form" class="form-signin w-75 m-5 d-flex flex-column align-items-center justify-content-center">
-                        <h2>Đổi mật khẩu tài khoản <span th:text="*{username}"></span></h2>
-                        <div class="form-group w-100" style="margin-top: 2em">
-                            <p th:if="*{errorMessage}" style="color: red">Mật khẩu không chính xác!</p>
-                            <label>Nhập mật khẩu</label>
-                            <input type="password" th:placeholder="Password"
-                                   id="password" name="password" class="form-control" required/>
-                        </div>
+            <form th:action="@{/doi-mat-khau}" method="POST" id="pass-form" class="form-signin w-75 m-5 d-flex flex-column align-items-center justify-content-center">
+                <h2>Đổi mật khẩu tài khoản <span th:text="*{username}"></span></h2>
+                <div class="form-group w-100" style="margin-top: 2em">
+                    <p th:if="*{errorMessage}" style="color: red">Mật khẩu không chính xác!</p>
+                    <label>Nhập mật khẩu</label>
+                    <input type="password" th:placeholder="Password"
+                           id="password" name="password" class="form-control" required/>
+                </div>
 
-                        <div class="form-group w-100" style="margin-top: 2em">
-                            <label>Nhập mật khẩu mới</label>
-                            <input type="password" id="new-password" name="new-password" placeholder="New Password"
-                                   class="form-control d-block" required/>
-                        </div>
+                <div class="form-group w-100" style="margin-top: 2em">
+                    <label>Nhập mật khẩu mới</label>
+                    <input type="password" id="new-password" name="new-password" placeholder="New Password"
+                           class="form-control d-block" required/>
+                </div>
 
-                        <div class="form-group w-100" style="margin-top: 2em">
+                <div class="form-group w-100" style="margin-top: 2em">
                             <label>Nhập lại mật khẩu</label>
-                            <p id="thong-bao" style="color: red; display: none;">* Mật khẩu nhập lại không đúng. Vui lòng nhập lại</p>
-                            <input type="text" id="re-password" name="re-password" placeholder="Repeat New Password"
-                                   class="form-control d-block" required/>
-                        </div>
+                    <p id="thong-bao" style="color: red; display: none;">* Mật khẩu nhập lại không đúng. Vui lòng nhập lại</p>
+                    <input type="text" id="re-password" name="re-password" placeholder="Repeat New Password"
+                           class="form-control d-block" required/>
+                </div>
+            </form>
+            <div class="w-100 form-group" style="margin-top: 2em">
 
-                        <div class="w-100 form-group" style="margin-top: 2em">
+                <button class="btn btn-success form-control" data-bs-toggle="modal" data-bs-target="#exampleModal">Đổi mật khẩu</button>
 
-                            <button class="btn btn-success form-control" data-bs-toggle="modal" data-bs-target="#exampleModal">Đổi mật khẩu</button>
-
-                            <!-- Modal -->
-                            <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header" style="font-size: 20px; color: red; font-weight: bold">
-                                            <h5 class="modal-title" id="exampleModalLabel"><i
-                                                    class="glyphicon glyphicon-warning-sign"> Cảnh báo</i></h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Bạn có muốn thay đổi mật khẩu?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
-                                                    class="glyphicon glyphicon-remove"> Hủy</i></button>
-                                            <button type="button" onclick="validate()"
-                                               class="btn btn-danger"><i class="glyphicon glyphicon-refresh">Thay đổi</i></button>
-                                        </div>
-                                    </div>
-                                </div>
+                <!-- Modal -->
+                <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header" style="font-size: 20px; color: red; font-weight: bold">
+                                <h5 class="modal-title" id="exampleModalLabel"><i
+                                        class="glyphicon glyphicon-warning-sign"> Cảnh báo</i></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Bạn có muốn thay đổi mật khẩu?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
+                                        class="glyphicon glyphicon-remove"> Hủy</i></button>
+                                <button type="button" onclick="validate()"
+                                        class="btn btn-danger"><i class="glyphicon glyphicon-refresh">Thay đổi</i></button>
                             </div>
                         </div>
-
-                    </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

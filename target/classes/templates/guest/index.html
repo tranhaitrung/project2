@@ -60,10 +60,14 @@
                 <a th:href="@{/nha-dat-ban}">Nhà đất cần bán</a></div>
             <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
                 <a th:href="@{/nha-dat-cho-thue}" class="align-middle">Nhà đất cho thuê</a></div>
-            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 38em;">
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;" th:if="*{role}">
+                <a th:href="@{/quan-ly}" class="align-middle">Trang quản lý</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;" th:unless="*{role}">
+            </div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 26em;">
                 <a type="button" class="btn btn-outline-primary" th:href="@{/dang-tin-nha-dat}">Đăng Tin</a>
             </div>
-            <div class="col-sm-1 d-flex align-items-center justify-content-center" style="height:5em; float: right; left: 36em; width: 9em;"
+            <div class="col-sm-1 d-flex align-items-center justify-content-center" style="height:5em; float: right; left: 25em; width: 9em;"
                  th:if="*{username}">
                 <a class="btn btn-outline-secondary border-0 w-100 d-flex justify-content-center align-items-center" th:href="@{/tai-khoan/{username}(username=*{username})}">
                     <img th:src="'data:image/jpeg;base64,'+ *{avatar1}" class="rounded-circle" style="width: 2.5em; height: 2.5em">
@@ -79,7 +83,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 36em"
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 25em"
                 th:unless="*{username}">
                 <a type="button" class="btn btn-outline-dark" th:href="@{/login}">Đăng Nhập</a>
             </div>

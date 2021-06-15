@@ -51,9 +51,6 @@ public class InformationUser {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "avatar")
-    private String avatar;
-
     @Value("${someNumber:0}")
     private Integer deleted;
 }

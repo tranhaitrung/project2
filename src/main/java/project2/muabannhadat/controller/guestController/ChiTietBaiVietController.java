@@ -29,6 +29,9 @@ public class ChiTietBaiVietController {
     private AvatarRepository avatarRepository;
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     private AvatarService avatarService;
 
     @GetMapping("/chi-tiet-bai-viet/{id}")
@@ -64,6 +67,9 @@ public class ChiTietBaiVietController {
         if (!username1.equals("anonymousUser")){
             System.out.println("logined : " + username1);
             avatar1 = avatarService.findByUserName(username1);
+            System.out.println("get role");
+            int roleid = userService.getRoleUser(username1);
+            modelAndView.addObject("role", roleid);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;

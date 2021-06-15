@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 import project2.muabannhadat.configuration.AuthenticationSystem;
 import project2.muabannhadat.model.*;
+import project2.muabannhadat.model.Image;
 import project2.muabannhadat.repository.AvatarRepository;
 import project2.muabannhadat.service.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,9 @@ public class HomeController {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     private PostArticleService postArticleService;
@@ -59,6 +64,9 @@ public class HomeController {
         if (!username1.equals("anonymousUser")){
             System.out.println("logined : " + username1);
             avatar1 = avatarService.findByUserName(username1);
+            System.out.println("get role");
+            int roleid = userService.getRoleUser(username1);
+            modelAndView.addObject("role", roleid);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;

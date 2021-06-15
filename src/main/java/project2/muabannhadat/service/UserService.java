@@ -10,9 +10,9 @@ import project2.muabannhadat.repository.RoleRepository;
 import project2.muabannhadat.repository.UserRepository;
 
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -57,5 +57,17 @@ public class UserService {
         User user = userRepository.findByUserName(username);
         user.setActive(active);
         userRepository.save(user);
+    }
+
+    public Integer getRoleUser(String username){
+        User user = userRepository.findByUserName(username);
+        Set<Role> roles = user.getRoles();
+        int r = -1000;
+        for (Role role : roles){
+            System.out.println(role);
+            r = role.getId();
+        }
+        System.out.println(r);
+        return r;
     }
 }

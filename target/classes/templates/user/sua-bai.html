@@ -70,23 +70,46 @@
 
 <header>
     <div class="col-sm-12">
-        <div class="row d-flex align-items-center" style="font-size:18px">
-            <div class="col-sm-1" style="height:5em; width: 10%;">
-                <img th:src="@{images/ttcgroup.png}" class="w-100 h-100" alt="LOGO TTCGROUP">
-            </div>
+        <div class="row d-flex align-items-center w-100" style="font-size:18px">
+            <a th:href="@{/}" class="col-sm-1" style="width: 10%">
+                <div style="height:5em; width: 100%;">
+                    <img th:src="@{/images/ttcgroup.png}" class="w-100 h-100" alt="LOGO TTCGROUP">
+                </div>
+            </a>
             <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
-                <a href="">Nhà đất cần bán</a></div>
+                <a th:href="@{/nha-dat-ban}">Nhà đất cần bán</a></div>
             <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;">
-                <a href="" class="align-middle">Nhà đất cho thuê</a></div>
-            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right;">
-                <a type="button" class="btn btn-outline-dark" th:href="@{/login}">Đăng Nhập</a>
+                <a th:href="@{/nha-dat-cho-thue}" class="align-middle">Nhà đất cho thuê</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;" th:if="*{role}">
+                <a th:href="@{/quan-ly}" class="align-middle">Trang quản lý</a></div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;" th:unless="*{role}">
             </div>
-            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right;">
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 26em;">
                 <a type="button" class="btn btn-outline-primary" th:href="@{/dang-tin-nha-dat}">Đăng Tin</a>
             </div>
+            <div class="col-sm-1 d-flex align-items-center justify-content-center" style="height:5em; float: right; left: 25em; width: 9em;"
+                 th:if="*{username}">
+                <a class="btn btn-outline-secondary border-0 w-100 d-flex justify-content-center align-items-center" th:href="@{/tai-khoan/{username}(username=*{username})}">
+                    <img th:src="'data:image/jpeg;base64,'+ *{avatar1}" class="rounded-circle" style="width: 2.5em; height: 2.5em">
+                    <p th:text="*{username}" style="font-size: 15px; margin:3px"></p>
+                </a>
+                <div class="dropdown">
+                    <button class="btn border-0 dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><a th:href="@{/cap-nhat-thong-tin}" class="dropdown-item" type="button">Cập nhật thông tin</a></li>
+                        <li><a th:href="@{/doi-mat-khau}" class="dropdown-item" type="button">Đổi mật khẩu</a></li>
+                        <li><a th:href="@{/logout}" class="dropdown-item" type="button">Đăng xuất</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 25em"
+                 th:unless="*{username}">
+                <a type="button" class="btn btn-outline-dark" th:href="@{/login}">Đăng Nhập</a>
+            </div>
         </div>
-
     </div>
+
     <div class="col-sm-12">
         <div class="row border-bottom border-start-0">
             <form>

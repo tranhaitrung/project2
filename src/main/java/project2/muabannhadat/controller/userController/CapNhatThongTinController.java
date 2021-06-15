@@ -38,6 +38,8 @@ public class CapNhatThongTinController {
     @Autowired
     private AvatarService avatarService;
 
+    @Autowired
+    UserService userService;
 
     private String username;
 
@@ -58,6 +60,9 @@ public class CapNhatThongTinController {
         if (!username1.equals("anonymousUser")){
             System.out.println("logined : " + username1);
             avatar1 = avatarService.findByUserName(username1);
+            System.out.println("get role");
+            int roleid = userService.getRoleUser(username1);
+            modelAndView.addObject("role", roleid);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;
@@ -106,6 +111,9 @@ public class CapNhatThongTinController {
             if (!username1.equals("anonymousUser")){
                 System.out.println("logined : " + username1);
                 avatar1 = avatarService.findByUserName(username1);
+                System.out.println("get role");
+                int roleid = userService.getRoleUser(username1);
+                modelAndView.addObject("role", roleid);
                 modelAndView.addObject("avatar1", avatar1.getImage());
             }else {
                 username1 = null;
