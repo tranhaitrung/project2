@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import project2.muabannhadat.configuration.AuthenticationSystem;
 import project2.muabannhadat.model.Avatar;
+import project2.muabannhadat.model.NotificationConnect;
 import project2.muabannhadat.model.User;
 import project2.muabannhadat.service.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class DoiMatKhauController {
@@ -28,6 +30,9 @@ public class DoiMatKhauController {
 
     @Autowired
     private AvatarService avatarService;
+
+    @Autowired
+    private NotificationConnectService connectService;
 
     private String username;
 
@@ -46,6 +51,10 @@ public class DoiMatKhauController {
             System.out.println("get role");
             int roleid = userService.getRoleUser(username1);
             modelAndView.addObject("role", roleid);
+            int countNew = connectService.countNotiNew(username1);
+            List<NotificationConnect> connectList = connectService.getByUsername(username1);
+            modelAndView.addObject("notis", connectList);
+            modelAndView.addObject("countNew", countNew);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;
@@ -80,6 +89,10 @@ public class DoiMatKhauController {
             System.out.println("get role");
             int roleid = userService.getRoleUser(username1);
             modelAndView.addObject("role", roleid);
+            int countNew = connectService.countNotiNew(username1);
+            List<NotificationConnect> connectList = connectService.getByUsername(username1);
+            modelAndView.addObject("notis", connectList);
+            modelAndView.addObject("countNew", countNew);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;

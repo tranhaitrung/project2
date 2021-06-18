@@ -124,3 +124,85 @@ function deleteAccountAdmin(){
     })
 
 }
+
+function notification(){
+    var uer = document.getElementById("tentk").innerText;
+
+    var check = true;
+
+    if (document.getElementById("fullname").value === ''){
+        alert("Vui lòng nhập tên!");
+        check = false;
+        return;
+    }
+
+    if (document.getElementById("telephone").value === ''){
+        alert("Vui lòng nhập số điện thoại!");
+        check = false;
+        return;
+    }
+
+    if (document.getElementById("email").value === ''){
+        alert("Vui lòng nhập email!");
+        check = false;
+        return;
+    }
+
+    if (document.getElementById("link").value === ''){
+        alert("Vui lòng điền link bài viết bạn quan tâm!");
+        check = false;
+        return;
+    }
+
+    if (!check){
+        return;
+    }
+
+    var data = {
+        email: $('#email').val(),
+        link: $('#link').val(),
+        name: $('#fullname').val(),
+        phone: $('#telephone').val(),
+        message: $('#message').val(),
+        username: uer,
+    }
+    console.log(uer);
+    console.log(data);
+    var url = 'http://localhost:8080/them-thong-bao';
+    console.log(url);
+    $.ajax({
+        url: url,
+        method: 'POST',
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        success: function (response){
+            alert("Yêu cầu liên hệ lại thành công!")
+            $('#exampleModalNotification').modal('hide');
+
+        },
+        error: function (response){
+            alert("Yêu cầu thất bại bại!")
+        }
+    });
+
+}
+
+function seen(id){
+    console.log(id);
+    var url = 'http://localhost:8080/xem-thong-bao/'+id;
+    $.ajax({
+        url: url,
+        method: 'GET',
+        success: function (response){
+            $('#ModalNotification').modal('show');
+            $('#fullname_receive').val(response.name);
+            $('#telephone_receive').val(response.phone);
+            $('#email_receive').val(response.email);
+            $('#link_receive').val(response.link);
+            $('#message_receive').val(response.message);
+        },
+        error: function (){
+            alert("Có lỗi xảy ra, vui lòng đăng nhập lại!")
+        }
+    })
+}

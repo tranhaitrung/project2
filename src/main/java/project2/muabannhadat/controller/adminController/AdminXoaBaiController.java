@@ -38,6 +38,9 @@ public class AdminXoaBaiController {
     @Autowired
     private AvatarService avatarService;
 
+    @Autowired
+    private NotificationConnectService connectService;
+
     @PostMapping("/xoa-bai-viet/{id}")
     @Transactional
     public ModelAndView xoaBaiViet(@PathVariable("id") Long id){
@@ -63,6 +66,13 @@ public class AdminXoaBaiController {
             System.out.println("logined : " + username1);
             avatar1 = avatarService.findByUserName(username1);
             modelAndView.addObject("avatar1", avatar1.getImage());
+            System.out.println("get role");
+            int roleid = userService.getRoleUser(username1);
+            modelAndView.addObject("role", roleid);
+            int countNew = connectService.countNotiNew(username1);
+            List<NotificationConnect> connectList = connectService.getByUsername(username1);
+            modelAndView.addObject("notis", connectList);
+            modelAndView.addObject("countNew", countNew);
         }else {
             username1 = null;
         }

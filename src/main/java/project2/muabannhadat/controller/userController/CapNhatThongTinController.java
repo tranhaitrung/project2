@@ -10,12 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 import project2.muabannhadat.configuration.AuthenticationSystem;
 import project2.muabannhadat.model.Avatar;
 import project2.muabannhadat.model.InformationUser;
+import project2.muabannhadat.model.NotificationConnect;
 import project2.muabannhadat.service.*;
 
 import javax.security.auth.login.LoginException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.List;
 
 @Controller
 @RestControllerAdvice
@@ -41,6 +43,9 @@ public class CapNhatThongTinController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    private NotificationConnectService connectService;
+
     private String username;
 
     @GetMapping(value = "/cap-nhat-thong-tin", produces = MediaType.IMAGE_PNG_VALUE)
@@ -63,6 +68,10 @@ public class CapNhatThongTinController {
             System.out.println("get role");
             int roleid = userService.getRoleUser(username1);
             modelAndView.addObject("role", roleid);
+            int countNew = connectService.countNotiNew(username1);
+            List<NotificationConnect> connectList = connectService.getByUsername(username1);
+            modelAndView.addObject("notis", connectList);
+            modelAndView.addObject("countNew", countNew);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;

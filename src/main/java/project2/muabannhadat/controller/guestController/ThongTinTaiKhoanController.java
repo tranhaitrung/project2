@@ -35,6 +35,9 @@ public class ThongTinTaiKhoanController {
     @Autowired
     private AvatarService avatarService;
 
+    @Autowired
+    private NotificationConnectService connectService;
+
 
     ModelAndView modelAndView = new ModelAndView();
 
@@ -65,6 +68,10 @@ public class ThongTinTaiKhoanController {
             System.out.println("get role");
             int roleid = userService.getRoleUser(username1);
             modelAndView.addObject("role", roleid);
+            int countNew = connectService.countNotiNew(username1);
+            List<NotificationConnect> connectList = connectService.getByUsername(username1);
+            modelAndView.addObject("notis", connectList);
+            modelAndView.addObject("countNew", countNew);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;

@@ -42,6 +42,9 @@ public class SuaBaiController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private NotificationConnectService connectService;
+
     private String username;
 
     private Long articleId;
@@ -58,6 +61,7 @@ public class SuaBaiController {
         }
         System.out.println("vào đây nè");
         modelAndView.addObject("article",article);
+
         modelAndView.addObject("inforUser", informationUser);
         modelAndView.setViewName("user/sua-bai");
         return modelAndView;
@@ -146,6 +150,10 @@ public class SuaBaiController {
                 System.out.println("get role");
                 int roleid = userService.getRoleUser(username1);
                 modelAndView.addObject("role", roleid);
+                int countNew = connectService.countNotiNew(username1);
+                List<NotificationConnect> connectList = connectService.getByUsername(username1);
+                modelAndView.addObject("notis", connectList);
+                modelAndView.addObject("countNew", countNew);
                 modelAndView.addObject("avatar1", avatar1.getImage());
             }else {
                 username1 = null;

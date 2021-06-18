@@ -57,10 +57,27 @@
                 <a th:href="@{/quan-ly}" class="align-middle">Trang quản lý</a></div>
             <div class="col-sm-1 d-flex align-items-center" style="height:5em; width: 12%;" th:unless="*{role}">
             </div>
-            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 26em;">
+            <div class="col-sm-1 d-flex align-items-center " style="height: 3em; margin-left: 22em; width: 3em" th:if="*{username}">
+                <a class="glyphicon glyphicon-bell d-flex align-items-center justify-content-center" type="button" id="message" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="badge rounded-pill bg-danger" th:if="*{countNew}" th:text="*{countNew}"></span>
+                </a>
+
+                <ul class="dropdown-menu" aria-labelledby="message" style="width: 15em; font-size: 15px">
+                    <li th:each="noti : ${notis}" style="height: 2.5em" class="flex-column justify-content-center align-items-center overflow-hidden">
+                        <a th:onclick="'seen(\'' + ${noti.id} + '\')'" class="dropdown-item overflow-hidden w-100 h-100" th:id="*{noti.id}" type="button">
+                            <p><b th:text="*{noti.name}"></b> <span class="badge rounded-pill bg-primary" th:unless="*{noti.seen}"> new</span></p>
+                            <p th:text="*{noti.message}" class="overflow-hidden"></p>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="col-sm-1 d-flex align-items-center" style="height: 5em; margin-left: 22em" th:unless="*{username}">
+            </div>
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em; margin-left: 1em">
                 <a type="button" class="btn btn-outline-primary" th:href="@{/dang-tin-nha-dat}">Đăng Tin</a>
             </div>
-            <div class="col-sm-1 d-flex align-items-center justify-content-center" style="height:5em; float: right; left: 25em; width: 9em;"
+            <div class="col-sm-1 d-flex align-items-center justify-content-center" style="height:5em; width: 9em;"
                  th:if="*{username}">
                 <a class="btn btn-outline-secondary border-0 w-100 d-flex justify-content-center align-items-center" th:href="@{/tai-khoan/{username}(username=*{username})}">
                     <img th:src="'data:image/jpeg;base64,'+ *{avatar1}" class="rounded-circle" style="width: 2.5em; height: 2.5em">
@@ -76,7 +93,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-sm-1 d-flex align-items-center" style="height:5em; float: right; left: 25em"
+            <div class="col-sm-1 d-flex align-items-center" style="height:5em;"
                  th:unless="*{username}">
                 <a type="button" class="btn btn-outline-dark" th:href="@{/login}">Đăng Nhập</a>
             </div>
@@ -208,6 +225,74 @@
 
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="ModalNotification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Yêu cầu liên hệ lại</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12" style="margin-top: 1.5em;">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Tên liên hệ: </label>
+                            </div>
+                            <div class="col-sm-7">
+                                <input class="form-control" type="text" id="fullname_receive">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="margin-top: 1em">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Số điện thoại: </label>
+                            </div>
+                            <div class="col-sm-7">
+                                <input class="form-control" type="text" id="telephone_receive">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="margin-top: 1em">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Email: </label>
+                            </div>
+                            <div class="col-sm-7">
+                                <input class="form-control" type="text" id="email_receive">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="margin-top: 1em">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Lời nhắn: </label>
+                            </div>
+                            <div class="col-sm-7">
+                                <textarea class="form-control" type="text" id="message_receive"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12" style="margin-top: 1em">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Link bài viết: </label>
+                            </div>
+                            <div class="col-sm-7">
+                                <input class="form-control" type="text" id="link_receive">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 </header>
@@ -393,5 +478,9 @@
     </div>
 </footer>
 
+
+<script th:src="@{/javascript/jquery-3.6.0.min.js}" type="text/javascript"></script>
+<script th:src="@{/javascript/ajax.js}"></script>
+<script th:src="@{/javascript/js.js}"></script>
 </body>
 </html>

@@ -15,6 +15,7 @@ import project2.muabannhadat.model.InformationUser;
 import project2.muabannhadat.model.User;
 import project2.muabannhadat.service.AvatarService;
 import project2.muabannhadat.service.InformationUserService;
+import project2.muabannhadat.service.NotificationConnectService;
 import project2.muabannhadat.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,9 @@ public class LoginControllerGuest {
 
     @Autowired
     private AvatarService avatarService;
+
+    @Autowired
+    private NotificationConnectService connectService;
 
     @GetMapping(value={"/login"})
     public ModelAndView login(){

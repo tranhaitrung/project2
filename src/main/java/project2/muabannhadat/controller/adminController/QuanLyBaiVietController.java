@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import project2.muabannhadat.configuration.AuthenticationSystem;
 import project2.muabannhadat.model.Article;
 import project2.muabannhadat.model.Avatar;
+import project2.muabannhadat.model.NotificationConnect;
 import project2.muabannhadat.service.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,9 @@ public class QuanLyBaiVietController {
     @Autowired
     private AvatarService avatarService;
 
+    @Autowired
+    private NotificationConnectService connectService;
+
     @GetMapping("/quan-ly-bai-viet")
     public ModelAndView quanLyBaiViet(){
         ModelAndView modelAndView = new ModelAndView();
@@ -54,6 +58,13 @@ public class QuanLyBaiVietController {
             System.out.println("logined : " + username1);
             avatar1 = avatarService.findByUserName(username1);
             modelAndView.addObject("avatar1", avatar1.getImage());
+            System.out.println("get role");
+            int roleid = userService.getRoleUser(username1);
+            modelAndView.addObject("role", roleid);
+            int countNew = connectService.countNotiNew(username1);
+            List<NotificationConnect> connectList = connectService.getByUsername(username1);
+            modelAndView.addObject("notis", connectList);
+            modelAndView.addObject("countNew", countNew);
         }else {
             username1 = null;
         }

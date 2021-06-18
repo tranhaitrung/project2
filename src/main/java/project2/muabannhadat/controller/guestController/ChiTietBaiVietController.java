@@ -34,6 +34,9 @@ public class ChiTietBaiVietController {
     @Autowired
     private AvatarService avatarService;
 
+    @Autowired
+    private NotificationConnectService connectService;
+
     @GetMapping("/chi-tiet-bai-viet/{id}")
     public ModelAndView getDetail(@PathVariable(name = "id") Long id){
         ModelAndView modelAndView = new ModelAndView();
@@ -69,6 +72,10 @@ public class ChiTietBaiVietController {
             avatar1 = avatarService.findByUserName(username1);
             System.out.println("get role");
             int roleid = userService.getRoleUser(username1);
+            int countNew = connectService.countNotiNew(username1);
+            List<NotificationConnect> connectList = connectService.getByUsername(username1);
+            modelAndView.addObject("notis", connectList);
+            modelAndView.addObject("countNew", countNew);
             modelAndView.addObject("role", roleid);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {

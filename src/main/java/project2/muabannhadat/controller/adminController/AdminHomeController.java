@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import project2.muabannhadat.configuration.AuthenticationSystem;
 import project2.muabannhadat.model.Avatar;
+import project2.muabannhadat.model.NotificationConnect;
 import project2.muabannhadat.service.*;
+
+import java.util.List;
 
 @RequestMapping(value = "/quan-ly")
 @Controller
@@ -33,6 +36,9 @@ public class AdminHomeController {
     @Autowired
     private AvatarService avatarService;
 
+    @Autowired
+    private NotificationConnectService connectService;
+
     @GetMapping(value={"/home", ""})
     public ModelAndView home(){
         ModelAndView modelAndView = new ModelAndView();
@@ -54,6 +60,13 @@ public class AdminHomeController {
             System.out.println("logined : " + username1);
             avatar1 = avatarService.findByUserName(username1);
             modelAndView.addObject("avatar1", avatar1.getImage());
+            System.out.println("get role");
+            int roleid = userService.getRoleUser(username1);
+            modelAndView.addObject("role", roleid);
+            int countNew = connectService.countNotiNew(username1);
+            List<NotificationConnect> connectList = connectService.getByUsername(username1);
+            modelAndView.addObject("notis", connectList);
+            modelAndView.addObject("countNew", countNew);
         }else {
             username1 = null;
         }

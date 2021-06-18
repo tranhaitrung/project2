@@ -16,6 +16,7 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
 
 @Controller
 public class DangBaiController {
@@ -40,6 +41,9 @@ public class DangBaiController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private NotificationConnectService connectService;
+
     private String username;
 
     @GetMapping("/dang-tin-nha-dat")
@@ -60,6 +64,10 @@ public class DangBaiController {
             System.out.println("get role");
             int roleid = userService.getRoleUser(username1);
             modelAndView.addObject("role", roleid);
+            int countNew = connectService.countNotiNew(username1);
+            List<NotificationConnect> connectList = connectService.getByUsername(username1);
+            modelAndView.addObject("notis", connectList);
+            modelAndView.addObject("countNew", countNew);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;
@@ -150,6 +158,10 @@ public class DangBaiController {
                 System.out.println("get role");
                 int roleid = userService.getRoleUser(username1);
                 modelAndView.addObject("role", roleid);
+                int countNew = connectService.countNotiNew(username1);
+                List<NotificationConnect> connectList = connectService.getByUsername(username1);
+                modelAndView.addObject("notis", connectList);
+                modelAndView.addObject("countNew", countNew);
                 modelAndView.addObject("avatar1", avatar1.getImage());
             }else {
                 username1 = null;

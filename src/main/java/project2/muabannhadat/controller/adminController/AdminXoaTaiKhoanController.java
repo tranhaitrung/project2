@@ -38,6 +38,10 @@ public class AdminXoaTaiKhoanController {
 
     @Autowired
     private AvatarService avatarService;
+
+    @Autowired
+    private NotificationConnectService connectService;
+
     @PostMapping("/xoa-tai-khoan/{username}")
     @Transactional
     public Boolean xoaTaiKhoan(@PathVariable("username") String username){

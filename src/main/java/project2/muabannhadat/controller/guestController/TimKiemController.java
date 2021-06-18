@@ -6,10 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import project2.muabannhadat.configuration.AuthenticationSystem;
-import project2.muabannhadat.model.Article;
-import project2.muabannhadat.model.Avatar;
-import project2.muabannhadat.model.Image;
-import project2.muabannhadat.model.PostArticle;
+import project2.muabannhadat.model.*;
 import project2.muabannhadat.service.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +31,9 @@ public class TimKiemController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    private NotificationConnectService connectService;
 
     @GetMapping("/")
     public ModelAndView search(HttpServletRequest request){
@@ -75,6 +75,10 @@ public class TimKiemController {
             System.out.println("get role");
             int roleid = userService.getRoleUser(username1);
             modelAndView.addObject("role", roleid);
+            int countNew = connectService.countNotiNew(username1);
+            List<NotificationConnect> connectList = connectService.getByUsername(username1);
+            modelAndView.addObject("notis", connectList);
+            modelAndView.addObject("countNew", countNew);
             modelAndView.addObject("avatar1", avatar1.getImage());
         }else {
             username1 = null;
